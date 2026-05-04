@@ -1,0 +1,2823 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Terra Luna — Slow fashion, deeply rooted</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+<style>
+/* Terra Luna — Design System */
+:root {
+  --bone: #F4EFE6;
+  --bone-2: #ECE5D6;
+  --cream: #E8DFCE;
+  --ink: #1C1B17;
+  --ink-soft: #3A3833;
+  --muted: #6E6A60;
+  --line: #D9D2C2;
+  --line-soft: #E5DECC;
+  --clay: #A8704C;
+  --clay-deep: #8A5A3C;
+  --moss: #5A5C3F;
+  --indigo: #2E3A4A;
+  --rose: #C9846B;
+  --success: #4A6B43;
+  --warn: #B8763A;
+  --danger: #A14848;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--bone);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern" 1;
+  letter-spacing: -0.005em;
+}
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, textarea, select { font-family: inherit; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============ TOP NAV ============ */
+.topbar {
+  background: var(--ink);
+  color: var(--bone);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 9px 0;
+  font-weight: 400;
+}
+.topbar .marquee {
+  display: flex;
+  gap: 80px;
+  justify-content: center;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bone);
+  border-bottom: 1px solid var(--line);
+  padding: 18px 40px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+.nav-left, .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+.nav-right { justify-content: flex-end; }
+.nav-link {
+  cursor: pointer;
+  position: relative;
+  padding: 4px 0;
+  transition: color .2s;
+  white-space: nowrap;
+}
+.nav-link:hover { color: var(--clay); }
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -22px;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--clay);
+}
+.brand {
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 26px;
+  letter-spacing: 0.32em;
+  text-align: center;
+  cursor: pointer;
+}
+.brand .dot { color: var(--clay); }
+.icon-btn {
+  width: 36px; height: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: background .2s;
+}
+.icon-btn:hover { background: var(--cream); }
+.cart-count {
+  position: absolute;
+  top: -2px; right: -2px;
+  background: var(--clay);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--bone);
+}
+.btn-primary:hover { background: var(--clay-deep); }
+.btn-clay {
+  background: var(--clay);
+  color: white;
+}
+.btn-clay:hover { background: var(--clay-deep); }
+.btn-outline {
+  background: transparent;
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.btn-outline:hover { background: var(--ink); color: var(--bone); }
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  padding: 6px 0;
+}
+.btn-block { width: 100%; }
+.btn-lg { padding: 18px 36px; font-size: 13px; }
+
+/* ============ TYPOGRAPHY ============ */
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--clay);
+  font-weight: 500;
+}
+.h-display {
+  font-weight: 200;
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+.h1 { font-weight: 300; font-size: 56px; line-height: 1.04; letter-spacing: -0.015em; }
+.h2 { font-weight: 300; font-size: 40px; line-height: 1.1; letter-spacing: -0.01em; }
+.h3 { font-weight: 400; font-size: 24px; line-height: 1.2; }
+.body-lg { font-size: 17px; line-height: 1.6; color: var(--ink-soft); }
+.body { font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
+.small { font-size: 13px; line-height: 1.5; color: var(--muted); }
+.mono { font-family: 'Helvetica Neue', monospace; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+
+/* ============ FORMS ============ */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.field label {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+.field input, .field textarea, .field select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s;
+}
+.field input:focus, .field textarea:focus { border-color: var(--ink); }
+.field-boxed input, .field-boxed select {
+  border: 1px solid var(--line);
+  background: white;
+  padding: 14px 16px;
+}
+.field-boxed input:focus { border-color: var(--ink); }
+
+/* ============ PRODUCT CARD ============ */
+.product-card {
+  cursor: pointer;
+  transition: transform .3s ease;
+}
+.product-card:hover .swatch-row { opacity: 1; }
+.product-card:hover .quick-add { opacity: 1; transform: translateY(0); }
+.product-img {
+  position: relative;
+  background: var(--cream);
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.product-card:hover .product-img-inner { transform: scale(1.03); }
+.product-img-inner {
+  position: absolute; inset: 0;
+  transition: transform .8s ease;
+}
+.quick-add {
+  position: absolute;
+  bottom: 12px;
+  left: 12px; right: 12px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  text-align: center;
+  padding: 12px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all .25s ease;
+}
+.product-tag {
+  position: absolute;
+  top: 12px; left: 12px;
+  background: var(--ink);
+  color: var(--bone);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 9px;
+  font-weight: 500;
+}
+.product-tag.sale { background: var(--clay); }
+.product-wishlist {
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(4px);
+}
+.product-wishlist:hover { background: white; }
+.product-name {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin-bottom: 4px;
+}
+.product-price {
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-feature-settings: "tnum";
+}
+.product-price .strike {
+  text-decoration: line-through;
+  color: var(--muted);
+  margin-right: 6px;
+}
+.product-price .save {
+  color: var(--clay);
+  font-size: 12px;
+  margin-left: 6px;
+}
+.swatch-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  opacity: 0.7;
+  transition: opacity .2s;
+}
+.swatch {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+.swatch.active { outline: 1px solid var(--ink); outline-offset: 2px; }
+
+/* ============ DRAWER / SIDE CART ============ */
+.drawer-overlay {
+  position: fixed; inset: 0;
+  background: rgba(28,27,23,0.4);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.drawer-overlay.open { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: fixed;
+  top: 0; right: 0;
+  height: 100vh;
+  width: 460px;
+  max-width: 100vw;
+  background: var(--bone);
+  z-index: 101;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  display: flex;
+  flex-direction: column;
+}
+.drawer.open { transform: translateX(0); }
+.drawer-head {
+  padding: 24px 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.drawer-body { flex: 1; overflow-y: auto; padding: 8px 28px; }
+.drawer-foot { padding: 24px 28px; border-top: 1px solid var(--line); }
+
+/* ============ MISC ============ */
+.divider { height: 1px; background: var(--line); }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all .2s;
+}
+.chip:hover { border-color: var(--ink); }
+.chip.active { background: var(--ink); color: var(--bone); border-color: var(--ink); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  font-weight: 500;
+}
+.badge-success { background: rgba(74,107,67,0.12); color: var(--success); }
+.badge-warn { background: rgba(184,118,58,0.12); color: var(--warn); }
+.badge-clay { background: rgba(168,112,76,0.12); color: var(--clay); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bone); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* Step indicator */
+.steps {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.steps .step { color: var(--muted); display: flex; gap: 8px; align-items: center; }
+.steps .step.active { color: var(--ink); }
+.steps .step.done { color: var(--success); }
+.steps .step .num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px;
+}
+.steps .step.active .num { background: var(--ink); color: var(--bone); border-color: var(--ink); }
+.steps .step.done .num { background: var(--success); color: white; border-color: var(--success); }
+.steps .sep { width: 24px; height: 1px; background: var(--line); }
+
+/* Animations */
+@keyframes fadeUp { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
+.fade-up { animation: fadeUp .5s ease both; }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, var(--cream) 0%, var(--bone-2) 50%, var(--cream) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--ink);
+  color: var(--bone);
+  padding: 14px 24px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  pointer-events: none;
+  transition: all .35s ease;
+  z-index: 200;
+  display: flex; align-items: center; gap: 12px;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Responsive */
+@media (max-width: 1180px) {
+  .nav-left .nav-link:nth-child(n+4) { display: none; }
+  .nav-right { gap: 18px; }
+  .nav-left { gap: 22px; }
+}
+@media (max-width: 980px) {
+  .nav { padding: 14px 20px; }
+  .nav-left .nav-link { display: none; }
+  .brand { font-size: 22px; letter-spacing: 0.24em; }
+  .h-display { font-size: 56px; }
+}
+/* Extra polish */
+body { font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.h-display, .h1, .h2, .h3 { font-family: 'Cormorant Garamond', Georgia, serif; }
+.h-display { font-size: clamp(52px, 8vw, 100px); font-weight: 300; line-height: 0.98; letter-spacing: -0.025em; }
+.h1 { font-size: clamp(38px, 5vw, 64px); }
+.h2 { font-size: clamp(28px, 3.5vw, 48px); }
+.sage { --sage: #9CA38B; }
+@keyframes kb { from{transform:scale(1)} to{transform:scale(1.06)} }
+.kb { animation: kb 7s ease-out forwards; }
+@keyframes fadeUp { from { opacity:0; transform: translateY(14px); } to { opacity:1; transform: translateY(0); } }
+.fade-up { animation: fadeUp .6s ease both; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+/* Placeholder imagery system — woven texture SVGs evoking khadi handloom
+   No hand-drawn figurative SVG; we use textile-inspired backgrounds + monospace explainer labels */
+
+const TextilePlaceholder = ({ label, tone = 'cream', ratio = '3/4', overlay, style = {}, full = false }) => {
+  const palettes = {
+    cream:    ['#E8DFCE', '#D9CFB9', '#C9BC9F'],
+    clay:     ['#C99877', '#A8704C', '#8A5A3C'],
+    moss:     ['#7A7C5C', '#5A5C3F', '#42442C'],
+    indigo:   ['#4A5868', '#2E3A4A', '#1F2A38'],
+    bone:     ['#F4EFE6', '#ECE5D6', '#DDD3BD'],
+    rose:     ['#E0B5A2', '#C9846B', '#A8634B'],
+    ink:      ['#3A3833', '#1C1B17', '#0E0D0B'],
+    sage:     ['#B5BBA6', '#9CA38B', '#7E8470'],
+  };
+  const [c1, c2, c3] = palettes[tone] || palettes.cream;
+  const id = React.useMemo(() => 'tx' + Math.random().toString(36).slice(2, 9), []);
+
+  return (
+    <div style={{
+      position: full ? 'absolute' : 'relative',
+      inset: full ? 0 : undefined,
+      width: full ? undefined : '100%',
+      aspectRatio: full ? undefined : ratio,
+      overflow: 'hidden',
+      background: c2,
+      ...style,
+    }}>
+      <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style={{ position: 'absolute', inset: 0 }}>
+        <defs>
+          <linearGradient id={id + 'g'} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={c1} />
+            <stop offset="55%" stopColor={c2} />
+            <stop offset="100%" stopColor={c3} />
+          </linearGradient>
+          <pattern id={id + 'wv'} width="6" height="6" patternUnits="userSpaceOnUse">
+            <rect width="6" height="6" fill="transparent" />
+            <line x1="0" y1="0" x2="0" y2="6" stroke={c3} strokeWidth="0.5" opacity="0.35" />
+            <line x1="0" y1="0" x2="6" y2="0" stroke={c1} strokeWidth="0.5" opacity="0.25" />
+          </pattern>
+          <pattern id={id + 'sl'} width="200" height="3" patternUnits="userSpaceOnUse">
+            <rect width="200" height="3" fill="transparent" />
+            <line x1="0" y1="1.5" x2="200" y2="1.5" stroke={c3} strokeWidth="0.4" opacity="0.5" strokeDasharray="2 5" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#${id}g)`} />
+        <rect width="100%" height="100%" fill={`url(#${id}wv)`} />
+        <rect width="100%" height="100%" fill={`url(#${id}sl)`} />
+        {/* Soft vignette */}
+        <radialGradient id={id + 'v'} cx="50%" cy="40%" r="80%">
+          <stop offset="0%" stopColor="rgba(0,0,0,0)" />
+          <stop offset="100%" stopColor="rgba(0,0,0,0.18)" />
+        </radialGradient>
+        <rect width="100%" height="100%" fill={`url(#${id}v)`} />
+      </svg>
+      {label && (
+        <div style={{
+          position: 'absolute',
+          bottom: 14,
+          left: 14,
+          right: 14,
+          fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace',
+          fontSize: 10,
+          letterSpacing: '0.06em',
+          color: tone === 'bone' || tone === 'cream' ? 'rgba(28,27,23,0.55)' : 'rgba(255,255,255,0.7)',
+          textTransform: 'uppercase',
+          display: 'flex',
+          justifyContent: 'space-between',
+          gap: 8,
+        }}>
+          <span>↳ {label}</span>
+        </div>
+      )}
+      {overlay}
+    </div>
+  );
+};
+
+/* GarmentImage — taller, more "photographic" placeholder evoking a hanging khadi piece on a warm bone backdrop.
+   Uses soft radial light, a centered garment silhouette via SVG, and the brand textile pattern. */
+const GarmentImage = ({ tone = 'bone', garment = 'shirt', label, full = false, ratio = '3/4', style = {} }) => {
+  const palettes = {
+    cream:    { bg: '#EDE4D2', fab1: '#D9CFB9', fab2: '#C4B698', shadow: '#9E8F70' },
+    clay:     { bg: '#EDE4D2', fab1: '#C99877', fab2: '#A8704C', shadow: '#7A4F33' },
+    moss:     { bg: '#EDE4D2', fab1: '#7A7C5C', fab2: '#5A5C3F', shadow: '#3F4128' },
+    indigo:   { bg: '#EDE4D2', fab1: '#4A5868', fab2: '#2E3A4A', shadow: '#1A2230' },
+    bone:     { bg: '#EDE4D2', fab1: '#E5DBC3', fab2: '#D4C7A8', shadow: '#A89980' },
+    rose:     { bg: '#EDE4D2', fab1: '#D89678', fab2: '#B26B4C', shadow: '#7E4429' },
+    ink:      { bg: '#EDE4D2', fab1: '#3A3833', fab2: '#1C1B17', shadow: '#0A0908' },
+    sage:     { bg: '#EDE4D2', fab1: '#B5BBA6', fab2: '#9CA38B', shadow: '#6B7160' },
+  };
+  const c = palettes[tone] || palettes.cream;
+  const id = React.useMemo(() => 'gm' + Math.random().toString(36).slice(2, 9), []);
+
+  // SVG silhouettes (simplified clothing shapes)
+  const garmentPath = {
+    shirt:   "M 100 50 L 130 40 L 160 50 L 200 80 L 220 130 L 215 250 L 210 380 L 200 410 L 60 410 L 50 380 L 45 250 L 40 130 L 60 80 Z M 100 50 L 110 90 L 130 100 L 150 90 L 160 50",
+    jacket:  "M 95 60 L 130 45 L 165 60 L 215 95 L 235 150 L 230 280 L 225 410 L 210 425 L 130 420 L 50 425 L 35 410 L 30 280 L 25 150 L 45 95 Z M 130 45 L 130 425",
+    dress:   "M 100 50 L 130 40 L 160 50 L 195 80 L 200 140 L 215 240 L 240 380 L 245 430 L 15 430 L 20 380 L 45 240 L 60 140 L 65 80 Z",
+    trouser: "M 80 40 L 180 40 L 195 60 L 210 200 L 215 360 L 225 430 L 165 430 L 145 250 L 130 250 L 115 250 L 95 430 L 35 430 L 45 360 L 50 200 L 65 60 Z",
+    vest:    "M 90 60 L 130 45 L 170 60 L 210 90 L 215 130 L 200 380 L 195 410 L 65 410 L 60 380 L 45 130 L 50 90 Z M 130 45 L 130 410",
+    kurta:   "M 95 50 L 130 38 L 165 50 L 200 75 L 220 120 L 215 280 L 220 440 L 210 460 L 50 460 L 40 440 L 45 280 L 40 120 L 60 75 Z M 130 38 L 130 460",
+    set:     "M 90 50 L 130 40 L 170 50 L 200 75 L 215 110 L 200 220 L 70 220 L 45 110 L 60 75 Z M 80 240 L 180 240 L 195 260 L 205 380 L 210 430 L 165 430 L 150 280 L 130 280 L 110 280 L 95 430 L 50 430 L 55 380 L 65 260 Z",
+  };
+  const path = garmentPath[garment] || garmentPath.shirt;
+
+  return (
+    <div style={{
+      position: full ? 'absolute' : 'relative',
+      inset: full ? 0 : undefined,
+      width: full ? undefined : '100%',
+      aspectRatio: full ? undefined : ratio,
+      overflow: 'hidden',
+      background: c.bg,
+      ...style,
+    }}>
+      {/* Soft ambient backdrop */}
+      <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" viewBox="0 0 260 480" style={{ position: 'absolute', inset: 0 }}>
+        <defs>
+          <radialGradient id={id + 'rg'} cx="50%" cy="35%" r="75%">
+            <stop offset="0%" stopColor="#F4ECD8" />
+            <stop offset="100%" stopColor={c.bg} />
+          </radialGradient>
+          <radialGradient id={id + 'fb'} cx="50%" cy="20%" r="90%">
+            <stop offset="0%" stopColor={c.fab1} />
+            <stop offset="65%" stopColor={c.fab2} />
+            <stop offset="100%" stopColor={c.shadow} />
+          </radialGradient>
+          <pattern id={id + 'wv'} width="3" height="3" patternUnits="userSpaceOnUse">
+            <rect width="3" height="3" fill="transparent" />
+            <line x1="0" y1="0" x2="0" y2="3" stroke={c.shadow} strokeWidth="0.3" opacity="0.4" />
+            <line x1="0" y1="0" x2="3" y2="0" stroke={c.fab1} strokeWidth="0.3" opacity="0.3" />
+          </pattern>
+          <filter id={id + 'sh'} x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" />
+          </filter>
+          <clipPath id={id + 'cp'}>
+            <path d={path} />
+          </clipPath>
+        </defs>
+        {/* Backdrop */}
+        <rect width="260" height="480" fill={`url(#${id}rg)`} />
+        {/* Floor shadow under garment */}
+        <ellipse cx="130" cy="445" rx="100" ry="14" fill="rgba(0,0,0,0.12)" filter={`url(#${id}sh)`} />
+        {/* Garment shadow */}
+        <g transform="translate(8 8)" opacity="0.18" filter={`url(#${id}sh)`}>
+          <path d={path} fill="#000" />
+        </g>
+        {/* Garment fill */}
+        <g>
+          <path d={path} fill={`url(#${id}fb)`} />
+          {/* textile pattern clipped to garment */}
+          <rect width="260" height="480" fill={`url(#${id}wv)`} clipPath={`url(#${id}cp)`} />
+          {/* fabric folds — subtle vertical strokes */}
+          <g clipPath={`url(#${id}cp)`} opacity="0.18">
+            <path d="M 70 80 Q 75 200 80 400" stroke={c.shadow} strokeWidth="1.5" fill="none" />
+            <path d="M 100 70 Q 95 200 105 410" stroke={c.shadow} strokeWidth="1" fill="none" />
+            <path d="M 160 70 Q 165 200 155 410" stroke={c.shadow} strokeWidth="1" fill="none" />
+            <path d="M 190 80 Q 185 200 180 400" stroke={c.shadow} strokeWidth="1.5" fill="none" />
+          </g>
+          {/* Highlight from upper left */}
+          <path d={path} fill={`url(#${id}rg)`} opacity="0.18" />
+        </g>
+      </svg>
+      {label && (
+        <div style={{
+          position: 'absolute', bottom: 14, left: 14, right: 14,
+          fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace', fontSize: 10,
+          letterSpacing: '0.06em', color: 'rgba(28,27,23,0.5)', textTransform: 'uppercase',
+          display: 'flex', justifyContent: 'space-between', gap: 8,
+        }}>
+          <span>↳ {label}</span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+window.TextilePlaceholder = TextilePlaceholder;
+window.GarmentImage = GarmentImage;
+/* Product catalog + state */
+const PRODUCTS = [
+  { id: 'p1', name: 'Amreli Khadi Shirt', garment: 'shirt', cat: 'Shirts', gender: 'Men',
+    price: 4499, mrp: 5999, tone: 'bone', tag: 'New',
+    colors: ['#E8DFCE', '#A8704C', '#2E3A4A', '#1C1B17'],
+    desc: 'Hand-spun, hand-woven khadi cotton in a relaxed regular fit. Cured for softness, made to age beautifully.',
+    fabric: '100% Handspun Khadi Cotton', care: 'Hand wash cold • Line dry • Cool iron',
+    sizes: ['XS','S','M','L','XL'] },
+  { id: 'p2', name: 'Charkha Linen Shirtdress', garment: 'dress', cat: 'Dresses', gender: 'Women',
+    price: 5999, mrp: 7499, tone: 'clay', tag: 'Editor’s Pick',
+    colors: ['#C9846B', '#E8DFCE', '#5A5C3F'],
+    desc: 'A breezy A-line shirtdress in pure linen, with mother-of-pearl buttons.',
+    fabric: '100% European Linen', care: 'Gentle machine wash • Tumble dry low',
+    sizes: ['XS','S','M','L'] },
+  { id: 'p3', name: 'Bandi Khadi Vest', garment: 'vest', cat: 'Outerwear', gender: 'Men',
+    price: 6999, mrp: 6999, tone: 'moss',
+    colors: ['#5A5C3F', '#1C1B17', '#A8704C'],
+    desc: 'Sleeveless waistcoat in textured khadi, with horn buttons and a single welt pocket.',
+    fabric: 'Khadi Cotton + Cotton Lining', care: 'Dry clean recommended',
+    sizes: ['S','M','L','XL'] },
+  { id: 'p4', name: 'Loom Cotton Trouser', garment: 'trouser', cat: 'Pants', gender: 'Unisex',
+    price: 3999, mrp: 4999, tone: 'cream',
+    colors: ['#E8DFCE', '#1C1B17', '#5A5C3F'],
+    desc: 'Wide-leg trouser in handloom cotton, drawstring waist with side pockets.',
+    fabric: '100% Handloom Cotton', care: 'Machine wash gentle',
+    sizes: ['XS','S','M','L','XL'] },
+  { id: 'p5', name: 'Indigo Wrap Tunic', garment: 'dress', cat: 'Tunics', gender: 'Women',
+    price: 4499, mrp: 5499, tone: 'indigo', tag: 'Limited',
+    colors: ['#2E3A4A', '#1C1B17'],
+    desc: 'Naturally indigo-dyed wrap tunic in light khadi, with adjustable side ties.',
+    fabric: 'Natural Indigo Khadi', care: 'Hand wash separately',
+    sizes: ['XS','S','M','L'] },
+  { id: 'p6', name: 'Rust Field Jacket', garment: 'jacket', cat: 'Outerwear', gender: 'Unisex',
+    price: 8999, mrp: 10999, tone: 'rose',
+    colors: ['#C9846B', '#1C1B17'],
+    desc: 'Heavyweight khadi field jacket with four bellows pockets and corozo buttons.',
+    fabric: 'Heavy Khadi Twill', care: 'Dry clean',
+    sizes: ['S','M','L','XL'] },
+  { id: 'p7', name: 'Mulmul Lounge Set', garment: 'set', cat: 'Loungewear', gender: 'Women',
+    price: 5499, mrp: 5499, tone: 'sage',
+    colors: ['#9CA38B', '#E8DFCE'],
+    desc: 'Two-piece lounge set in soft mulmul. Notched collar shirt + drawstring pant.',
+    fabric: '100% Mulmul Cotton', care: 'Hand wash recommended',
+    sizes: ['XS','S','M','L'] },
+  { id: 'p8', name: 'Charcoal Khadi Kurta', garment: 'kurta', cat: 'Kurtas', gender: 'Men',
+    price: 4799, mrp: 5499, tone: 'ink',
+    colors: ['#1C1B17', '#3A3833'],
+    desc: 'Long-sleeved kurta in charcoal khadi with mandarin collar and side slits.',
+    fabric: '100% Handspun Khadi', care: 'Hand wash cold',
+    sizes: ['S','M','L','XL'] },
+];
+
+const fmt = n => '₹' + n.toLocaleString('en-IN');
+window.PRODUCTS = PRODUCTS;
+window.fmt = fmt;
+/* Inline SVG icons — minimal stroke set */
+const Ic = {
+  search: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>,
+  user: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>,
+  heart: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M12 21s-7-4.5-9.5-9C1 9 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3C21 5 23 9 21.5 12c-2.5 4.5-9.5 9-9.5 9Z"/></svg>,
+  bag: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>,
+  close: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M6 6l12 12M18 6 6 18"/></svg>,
+  arrowR: (p={}) => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M5 12h14M13 5l7 7-7 7"/></svg>,
+  arrowL: (p={}) => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M19 12H5M11 5l-7 7 7 7"/></svg>,
+  chev: (p={}) => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="m9 6 6 6-6 6"/></svg>,
+  check: (p={}) => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...p}><path d="m4 12 5 5L20 6"/></svg>,
+  truck: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>,
+  shield: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/></svg>,
+  leaf: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M5 19c10 0 14-6 14-14C9 5 5 11 5 19Z"/><path d="M5 19c0-4 3-8 7-10"/></svg>,
+  rotate: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>,
+  chat: (p={}) => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-5a8 8 0 1 1 16-3Z"/></svg>,
+  send: (p={}) => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="m4 12 17-9-5 18-3-7-9-2Z"/></svg>,
+  play: (p={}) => <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" {...p}><path d="M6 4v16l14-8L6 4Z"/></svg>,
+  pause: (p={}) => <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" {...p}><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>,
+  filter: (p={}) => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M3 5h18M6 12h12M10 19h4"/></svg>,
+  star: (p={}) => <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" {...p}><path d="m12 3 2.6 6 6.4.6-4.8 4.4 1.4 6.4L12 17l-5.6 3.4 1.4-6.4L3 9.6 9.4 9 12 3Z"/></svg>,
+  pkg: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M3 7 12 3l9 4-9 4-9-4Z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>,
+  pin: (p={}) => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M12 22s7-7 7-13a7 7 0 0 0-14 0c0 6 7 13 7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>,
+  card: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>,
+  sparkle: (p={}) => <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" {...p}><path d="M12 2 14 10 22 12 14 14 12 22 10 14 2 12 10 10 12 2Z"/></svg>,
+  minus: (p={}) => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M5 12h14"/></svg>,
+  plus: (p={}) => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M12 5v14M5 12h14"/></svg>,
+  menu: (p={}) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M3 6h18M3 12h18M3 18h18"/></svg>,
+};
+window.Ic = Ic;
+/* Top nav + announcement bar + footer + side cart drawer */
+
+const TopNav = ({ route, go, cart, openCart, openSearch, user }) => {
+  const NavLink = ({ id, label }) => (
+    <a className={'nav-link' + (route === id ? ' active' : '')} onClick={() => go(id)}>{label}</a>
+  );
+  return (
+    <>
+      <div className="topbar">
+        <div className="marquee">
+          <span>Free shipping on orders over ₹2,499</span>
+          <span>·</span>
+          <span>Hand-spun in Amreli, shipped worldwide</span>
+          <span>·</span>
+          <span>10% off your first order — code <strong style={{letterSpacing:'0.18em'}}>TERRALUNA10</strong></span>
+        </div>
+      </div>
+      <nav className="nav">
+        <div className="nav-left">
+          <NavLink id="plp" label="Women" />
+          <NavLink id="plp" label="Men" />
+          <NavLink id="plp" label="Collections" />
+          <NavLink id="home" label="Our Story" />
+          <NavLink id="home" label="Journal" />
+        </div>
+        <div className="brand" onClick={() => go('home')}>
+          TERRA LUNA<span className="dot">.</span>
+        </div>
+        <div className="nav-right">
+          <button className="icon-btn" onClick={openSearch} aria-label="Search"><Ic.search /></button>
+          <button className="icon-btn" onClick={() => go(user ? 'account' : 'login')} aria-label="Account"><Ic.user /></button>
+          <button className="icon-btn" aria-label="Wishlist"><Ic.heart /></button>
+          <button className="icon-btn" onClick={openCart} aria-label="Cart">
+            <Ic.bag />
+            {cart.length > 0 && <span className="cart-count">{cart.reduce((n,i)=>n+i.qty,0)}</span>}
+          </button>
+        </div>
+      </nav>
+    </>
+  );
+};
+
+const Footer = () => (
+  <footer style={{ background: 'var(--ink)', color: 'var(--bone)', padding: '80px 40px 40px', marginTop: 80 }}>
+    <div style={{ maxWidth: 1400, margin: '0 auto', display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr 1fr', gap: 60 }}>
+      <div>
+        <div style={{ fontSize: 28, fontWeight: 300, letterSpacing: '0.32em', marginBottom: 20 }}>TERRA LUNA<span style={{ color: 'var(--clay)' }}>.</span></div>
+        <p style={{ fontSize: 14, lineHeight: 1.7, opacity: 0.7, maxWidth: 320 }}>
+          Hand-spun khadi and pure linen. Made by 250+ artisans in Amreli, Gujarat. Designed for the long road.
+        </p>
+        <div style={{ marginTop: 28 }}>
+          <div style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 12, opacity: 0.6 }}>Newsletter</div>
+          <div style={{ display: 'flex', gap: 8, maxWidth: 360 }}>
+            <input placeholder="your@email.com" style={{ flex: 1, padding: '12px 14px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: 'var(--bone)', fontSize: 13 }}/>
+            <button className="btn btn-clay" style={{ padding: '12px 18px' }}>Join</button>
+          </div>
+        </div>
+      </div>
+      {[
+        { title: 'Shop', items: ['Women', 'Men', 'New Arrivals', 'Sale', 'Gift Cards'] },
+        { title: 'Help', items: ['Contact', 'Shipping', 'Returns', 'Size Guide', 'Track Order'] },
+        { title: 'Terra Luna', items: ['Our Story', 'Sustainability', 'Artisans', 'Press', 'Careers'] },
+        { title: 'Connect', items: ['Instagram', 'Pinterest', 'YouTube', 'WhatsApp'] },
+      ].map(c => (
+        <div key={c.title}>
+          <div style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 18, opacity: 0.6 }}>{c.title}</div>
+          {c.items.map(i => <div key={i} style={{ fontSize: 14, marginBottom: 10, opacity: 0.85, cursor: 'pointer' }}>{i}</div>)}
+        </div>
+      ))}
+    </div>
+    <div style={{ maxWidth: 1400, margin: '60px auto 0', paddingTop: 28, borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', fontSize: 12, opacity: 0.6 }}>
+      <span>© 2026 Terra Luna · Made in India</span>
+      <span>GOTS Certified · KVIC Authenticated · Carbon-Neutral Shipping</span>
+    </div>
+  </footer>
+);
+
+const SideCart = ({ open, close, cart, setCart, go }) => {
+  const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  const shipping = subtotal > 2499 ? 0 : 199;
+  const update = (idx, dq) => {
+    setCart(c => c.map((it,i) => i===idx ? {...it, qty: Math.max(1, it.qty+dq)} : it));
+  };
+  const remove = (idx) => setCart(c => c.filter((_,i)=>i!==idx));
+
+  return (
+    <>
+      <div className={'drawer-overlay' + (open ? ' open' : '')} onClick={close} />
+      <aside className={'drawer' + (open ? ' open' : '')}>
+        <div className="drawer-head">
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 4 }}>Your Bag</div>
+            <div style={{ fontSize: 22, fontWeight: 300 }}>{cart.reduce((n,i)=>n+i.qty,0)} item{cart.reduce((n,i)=>n+i.qty,0)===1?'':'s'}</div>
+          </div>
+          <button className="icon-btn" onClick={close}><Ic.close /></button>
+        </div>
+
+        {/* Free shipping bar */}
+        {subtotal > 0 && (
+          <div style={{ padding: '14px 28px', borderBottom: '1px solid var(--line-soft)', background: 'var(--cream)' }}>
+            {shipping === 0 ? (
+              <div style={{ fontSize: 13, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Ic.check /> You've unlocked free shipping
+              </div>
+            ) : (
+              <>
+                <div style={{ fontSize: 13, marginBottom: 8 }}>Add <strong>{fmt(2499 - subtotal)}</strong> for free shipping</div>
+                <div style={{ height: 3, background: 'var(--line)', borderRadius: 2, overflow: 'hidden' }}>
+                  <div style={{ width: Math.min(100, (subtotal/2499)*100) + '%', height: '100%', background: 'var(--clay)', transition: 'width .4s' }}/>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
+        <div className="drawer-body">
+          {cart.length === 0 ? (
+            <div style={{ padding: '60px 0', textAlign: 'center' }}>
+              <div style={{ fontSize: 18, marginBottom: 8 }}>Your bag is empty</div>
+              <p className="small" style={{ marginBottom: 24 }}>Discover something you'll love.</p>
+              <button className="btn btn-primary" onClick={() => { close(); go('plp'); }}>Shop the Collection</button>
+            </div>
+          ) : cart.map((it, idx) => (
+            <div key={idx} style={{ display: 'grid', gridTemplateColumns: '88px 1fr', gap: 16, padding: '20px 0', borderBottom: '1px solid var(--line-soft)' }}>
+              <TextilePlaceholder tone={it.tone} ratio="3/4" />
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 500, marginBottom: 4 }}>{it.name}</div>
+                    <div className="small">{it.size} · {it.colorName || 'Natural'}</div>
+                  </div>
+                  <button onClick={() => remove(idx)} style={{ fontSize: 12, color: 'var(--muted)', textDecoration: 'underline' }}>Remove</button>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 14 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--line)', borderRadius: 100 }}>
+                    <button onClick={() => update(idx, -1)} style={{ padding: '6px 10px' }}><Ic.minus /></button>
+                    <span style={{ minWidth: 18, textAlign: 'center', fontSize: 13 }}>{it.qty}</span>
+                    <button onClick={() => update(idx, 1)} style={{ padding: '6px 10px' }}><Ic.plus /></button>
+                  </div>
+                  <div style={{ fontSize: 14, fontWeight: 500 }}>{fmt(it.price * it.qty)}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {cart.length > 0 && (
+            <>
+              <div style={{ padding: '20px 0', borderBottom: '1px solid var(--line-soft)' }}>
+                <div className="eyebrow" style={{ marginBottom: 10 }}>Add a touch</div>
+                {[
+                  { name: 'Khadi Tote Bag', price: 899 },
+                  { name: 'Gift wrapping', price: 199 },
+                ].map(a => (
+                  <div key={a.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0' }}>
+                    <span style={{ fontSize: 13 }}>+ {a.name} · {fmt(a.price)}</span>
+                    <button className="chip">Add</button>
+                  </div>
+                ))}
+              </div>
+              <div style={{ padding: '16px 0' }}>
+                <div className="eyebrow" style={{ marginBottom: 10 }}>You may also like</div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                  {PRODUCTS.slice(5,7).map(p => (
+                    <div key={p.id}>
+                      <TextilePlaceholder tone={p.tone} ratio="1/1" />
+                      <div style={{ fontSize: 12, marginTop: 6 }}>{p.name}</div>
+                      <div style={{ fontSize: 12, color: 'var(--muted)' }}>{fmt(p.price)}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
+        {cart.length > 0 && (
+          <div className="drawer-foot">
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 6 }}>
+              <span>Subtotal</span><span>{fmt(subtotal)}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 6, color: 'var(--muted)' }}>
+              <span>Shipping</span><span>{shipping === 0 ? 'Free' : fmt(shipping)}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 17, fontWeight: 500, padding: '14px 0', borderTop: '1px solid var(--line)', marginTop: 8 }}>
+              <span>Total</span><span>{fmt(subtotal + shipping)}</span>
+            </div>
+            <button className="btn btn-primary btn-block btn-lg" onClick={() => { close(); go('checkout'); }}>
+              Checkout · {fmt(subtotal + shipping)}
+            </button>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 14, fontSize: 11, color: 'var(--muted)', letterSpacing: '0.06em' }}>
+              <span>VISA</span><span>·</span><span>MASTERCARD</span><span>·</span><span>UPI</span><span>·</span><span>COD</span>
+            </div>
+          </div>
+        )}
+      </aside>
+    </>
+  );
+};
+
+window.TopNav = TopNav;
+window.Footer = Footer;
+window.SideCart = SideCart;
+/* Home page — hero video banner, collection grid, story strip */
+
+const HeroBanner = () => {
+  const [playing, setPlaying] = React.useState(true);
+  // Animated "video" — rotating textile-style frames evoking khadi reel
+  const [frame, setFrame] = React.useState(0);
+  const frames = [
+    { tone: 'clay', label: 'Spring 26 · Field Jacket / Loom Trouser' },
+    { tone: 'moss', label: 'On Looms · Amreli, Gujarat' },
+    { tone: 'indigo', label: 'Natural Indigo · Hand Dyed' },
+    { tone: 'rose', label: 'Editor\'s Edit · Rust Field' },
+  ];
+  React.useEffect(() => {
+    if (!playing) return;
+    const t = setInterval(() => setFrame(f => (f+1) % frames.length), 4500);
+    return () => clearInterval(t);
+  }, [playing]);
+
+  const f = frames[frame];
+
+  return (
+    <section style={{ position: 'relative', height: '88vh', minHeight: 640, overflow: 'hidden' }}>
+      {/* "Video" — animated textile composition */}
+      <div style={{ position: 'absolute', inset: 0 }} key={frame}>
+        <TextilePlaceholder tone={f.tone} full label={f.label} />
+        {/* Subtle ken-burns scale */}
+        <style>{`
+          @keyframes kb { from{transform:scale(1)} to{transform:scale(1.08)} }
+          .kb { animation: kb 7s ease-out forwards; }
+        `}</style>
+      </div>
+
+      {/* Editorial overlay */}
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.35) 100%)' }}/>
+
+      <div style={{ position: 'relative', height: '100%', maxWidth: 1400, margin: '0 auto', padding: '0 40px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingBottom: 80, color: 'white' }}>
+        <div className="fade-up" style={{ maxWidth: 720 }}>
+          <div style={{ fontSize: 11, letterSpacing: '0.24em', textTransform: 'uppercase', marginBottom: 28, opacity: 0.9 }}>
+            Spring · Summer 2026
+          </div>
+          <h1 className="h-display" style={{ marginBottom: 28, color: 'white' }}>
+            The Quiet<br/>Revolution<br/><em style={{ fontWeight: 200, fontStyle: 'italic', color: 'var(--bone)' }}>of Khadi.</em>
+          </h1>
+          <p style={{ fontSize: 17, lineHeight: 1.6, maxWidth: 480, opacity: 0.92, marginBottom: 36 }}>
+            Hand-spun on charkhas, woven on home looms. A wardrobe that breathes, ages, and never goes out of style.
+          </p>
+          <div style={{ display: 'flex', gap: 14 }}>
+            <button className="btn btn-clay btn-lg" onClick={() => window.__go('plp')}>Shop Spring 26 <Ic.arrowR /></button>
+            <button className="btn btn-lg" style={{ color: 'white', border: '1px solid rgba(255,255,255,0.5)' }}>Watch the Film</button>
+          </div>
+        </div>
+      </div>
+
+      {/* Player controls */}
+      <div style={{ position: 'absolute', bottom: 28, right: 40, display: 'flex', alignItems: 'center', gap: 14, color: 'white' }}>
+        <button onClick={() => setPlaying(p => !p)} style={{ width: 36, height: 36, border: '1px solid rgba(255,255,255,0.4)', borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+          {playing ? <Ic.pause /> : <Ic.play />}
+        </button>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {frames.map((_, i) => (
+            <button key={i} onClick={() => setFrame(i)} style={{ width: i===frame?24:10, height: 2, background: i===frame ? 'white' : 'rgba(255,255,255,0.4)', transition: 'all .3s' }}/>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ValueStrip = () => (
+  <section style={{ borderBottom: '1px solid var(--line)', padding: '32px 40px' }}>
+    <div style={{ maxWidth: 1400, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 32 }}>
+      {[
+        { icon: <Ic.leaf/>, t: 'GOTS Certified', s: '100% organic, hand-spun' },
+        { icon: <Ic.truck/>, t: 'Free Shipping', s: 'On orders over ₹2,499' },
+        { icon: <Ic.rotate/>, t: '30-Day Returns', s: 'Easy, free, no questions' },
+        { icon: <Ic.shield/>, t: 'KVIC Authenticated', s: 'Real artisans, real wage' },
+      ].map((v, i) => (
+        <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+          <div style={{ color: 'var(--clay)' }}>{v.icon}</div>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 500 }}>{v.t}</div>
+            <div className="small">{v.s}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+const CollectionGrid = ({ go }) => {
+  const cards = [
+    { tone: 'clay', title: 'Field Edit', sub: 'Outerwear · Trousers · Jackets', size: 'large' },
+    { tone: 'cream', title: 'The Linen Story', sub: '12 essentials · ₹2,999+' },
+    { tone: 'indigo', title: 'Indigo Atelier', sub: 'Naturally dyed' },
+    { tone: 'moss', title: 'Men\'s Heritage', sub: 'Khadi kurtas + bandis' },
+  ];
+  return (
+    <section style={{ padding: '120px 40px' }}>
+      <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56 }}>
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 14 }}>Collections</div>
+            <h2 className="h2">Crafted in chapters,<br/>worn for seasons.</h2>
+          </div>
+          <a className="btn btn-ghost" onClick={() => go('plp')}>Browse all 142 pieces  →</a>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gridTemplateRows: '380px 380px', gap: 14 }}>
+          <div onClick={() => go('plp')} style={{ gridRow: 'span 2', cursor: 'pointer', position: 'relative' }}>
+            <TextilePlaceholder tone="clay" full label="hero · field edit"/>
+            <CollectionLabel title="Field Edit" sub="Outerwear · Trousers · Jackets" big/>
+          </div>
+          <div onClick={() => go('plp')} style={{ cursor: 'pointer', position: 'relative' }}>
+            <TextilePlaceholder tone="cream" full label="linen story"/>
+            <CollectionLabel title="The Linen Story" sub="12 essentials"/>
+          </div>
+          <div onClick={() => go('plp')} style={{ cursor: 'pointer', position: 'relative' }}>
+            <TextilePlaceholder tone="indigo" full label="indigo atelier"/>
+            <CollectionLabel title="Indigo Atelier" sub="Naturally dyed"/>
+          </div>
+          <div onClick={() => go('plp')} style={{ gridColumn: 'span 2', cursor: 'pointer', position: 'relative' }}>
+            <TextilePlaceholder tone="moss" full label="men's heritage"/>
+            <CollectionLabel title="Men's Heritage" sub="Khadi kurtas + bandis"/>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+const CollectionLabel = ({ title, sub, big }) => (
+  <div style={{ position: 'absolute', bottom: 24, left: 24, color: 'white' }}>
+    <div style={{ fontSize: big ? 36 : 22, fontWeight: 300, marginBottom: 6, letterSpacing: '-0.01em' }}>{title}</div>
+    <div style={{ fontSize: 13, opacity: 0.9 }}>{sub}  →</div>
+  </div>
+);
+
+const BestSellers = ({ go, addToCart }) => (
+  <section style={{ padding: '40px 40px 80px', background: 'var(--bone-2)' }}>
+    <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 40, paddingTop: 60 }}>
+        <div>
+          <div className="eyebrow" style={{ marginBottom: 14 }}>Most loved</div>
+          <h2 className="h2">Best Sellers</h2>
+        </div>
+        <a className="btn btn-ghost" onClick={() => go('plp')}>View all  →</a>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
+        {PRODUCTS.slice(0,4).map(p => (
+          <ProductCard key={p.id} p={p} go={go} addToCart={addToCart}/>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const ProductCard = ({ p, go, addToCart }) => {
+  const [color, setColor] = React.useState(0);
+  return (
+    <div className="product-card" onClick={() => go('pdp', { productId: p.id })}>
+      <div className="product-img">
+        <TextilePlaceholder tone={p.tone} full label={p.name}/>
+        {p.tag && <div className={'product-tag' + (p.mrp > p.price ? ' sale' : '')}>{p.tag}</div>}
+        <button className="product-wishlist" onClick={e => { e.stopPropagation(); }}><Ic.heart /></button>
+        <div className="quick-add" onClick={e => { e.stopPropagation(); addToCart(p, 'M'); }}>+ Quick add</div>
+      </div>
+      <div className="product-name">{p.name}</div>
+      <div className="product-price">
+        {p.mrp > p.price && <span className="strike">{fmt(p.mrp)}</span>}
+        {fmt(p.price)}
+        {p.mrp > p.price && <span className="save">−{Math.round((1-p.price/p.mrp)*100)}%</span>}
+      </div>
+      <div className="swatch-row">
+        {p.colors.map((c, i) => (
+          <span key={i} className={'swatch' + (i===color?' active':'')} style={{ background: c }} onClick={e => { e.stopPropagation(); setColor(i); }}/>
+        ))}
+        <span style={{ fontSize: 11, color: 'var(--muted)', alignSelf: 'center', marginLeft: 4 }}>{p.colors.length} colours</span>
+      </div>
+    </div>
+  );
+};
+
+const StoryStrip = () => (
+  <section style={{ padding: '120px 40px' }}>
+    <div style={{ maxWidth: 1400, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+      <div style={{ position: 'relative', aspectRatio: '4/5' }}>
+        <TextilePlaceholder tone="moss" full label="charkha · amreli, gujarat"/>
+      </div>
+      <div>
+        <div className="eyebrow" style={{ marginBottom: 24 }}>From Field to Fashion</div>
+        <h2 className="h2" style={{ marginBottom: 28 }}>Spun by 250 hands.<br/>Worn by yours.</h2>
+        <p className="body-lg" style={{ marginBottom: 20 }}>
+          Every Terra Luna garment begins on a non-electric charkha in Amreli, Gujarat. The yarn is hand-rolled, the cloth hand-loomed, the finish hand-stitched.
+        </p>
+        <p className="body-lg" style={{ marginBottom: 36, color: 'var(--muted)' }}>
+          Zero kilowatts. Zero shortcuts. Just a slow, deliberate cloth that gets softer with every wear.
+        </p>
+        <button className="btn btn-outline">Read our journal  →</button>
+      </div>
+    </div>
+  </section>
+);
+
+const InstaStrip = () => (
+  <section style={{ padding: '60px 40px 100px', borderTop: '1px solid var(--line)' }}>
+    <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+      <div style={{ textAlign: 'center', marginBottom: 40 }}>
+        <div className="eyebrow" style={{ marginBottom: 14 }}>#WornByYou</div>
+        <h2 className="h2">Tag @terra.luna</h2>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 4 }}>
+        {['cream','clay','moss','indigo','rose','sage'].map((t,i) => (
+          <div key={i} style={{ position: 'relative', aspectRatio: '1' }}>
+            <TextilePlaceholder tone={t} full label={`@user_${i+1}`}/>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const Home = ({ go, addToCart }) => {
+  React.useEffect(() => { window.__go = go; }, [go]);
+  return (
+    <>
+      <HeroBanner />
+      <ValueStrip />
+      <CollectionGrid go={go}/>
+      <BestSellers go={go} addToCart={addToCart}/>
+      <StoryStrip />
+      <InstaStrip />
+    </>
+  );
+};
+
+window.Home = Home;
+window.ProductCard = ProductCard;
+/* PLP — listing with filters; PDP — product detail */
+
+const PLP = ({ go, addToCart }) => {
+  const [sort, setSort] = React.useState('Featured');
+  const [activeCats, setActiveCats] = React.useState([]);
+  const [activeColors, setActiveColors] = React.useState([]);
+  const [view, setView] = React.useState('grid'); // grid | list
+  const cats = ['Shirts', 'Dresses', 'Outerwear', 'Pants', 'Tunics', 'Loungewear', 'Kurtas'];
+  const colors = [
+    { name: 'Bone', hex: '#E8DFCE' },
+    { name: 'Clay', hex: '#A8704C' },
+    { name: 'Moss', hex: '#5A5C3F' },
+    { name: 'Indigo', hex: '#2E3A4A' },
+    { name: 'Charcoal', hex: '#1C1B17' },
+    { name: 'Rose', hex: '#C9846B' },
+  ];
+
+  const toggle = (arr, set, v) => set(arr.includes(v) ? arr.filter(x=>x!==v) : [...arr, v]);
+
+  let products = [...PRODUCTS, ...PRODUCTS.slice(0,4).map(p => ({...p, id:p.id+'b'}))];
+  if (activeCats.length) products = products.filter(p => activeCats.includes(p.cat));
+  if (sort === 'Low to high') products.sort((a,b)=>a.price-b.price);
+  if (sort === 'High to low') products.sort((a,b)=>b.price-a.price);
+
+  return (
+    <div>
+      {/* Banner */}
+      <section style={{ position: 'relative', height: 360, overflow: 'hidden' }}>
+        <TextilePlaceholder tone="clay" full label="women · spring 26"/>
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', color: 'white', textAlign: 'center', background: 'rgba(0,0,0,0.2)' }}>
+          <div className="eyebrow" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: 14 }}>Spring 26 Collection</div>
+          <h1 className="h1" style={{ color: 'white', marginBottom: 12 }}>Women</h1>
+          <p style={{ fontSize: 15, opacity: 0.9, maxWidth: 480 }}>Khadi shirts, linen dresses, indigo tunics. Made to layer, made to last.</p>
+        </div>
+      </section>
+
+      {/* Breadcrumb + count */}
+      <div style={{ padding: '24px 40px', borderBottom: '1px solid var(--line)' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="small">Home · Women · <span style={{ color: 'var(--ink)' }}>All</span></div>
+          <div style={{ fontSize: 13 }}>{products.length} products</div>
+        </div>
+      </div>
+
+      {/* Filters bar */}
+      <div style={{ position: 'sticky', top: 73, zIndex: 30, background: 'var(--bone)', borderBottom: '1px solid var(--line)', padding: '16px 40px' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto', display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
+          <span style={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--muted)', marginRight: 4 }}>Filter</span>
+          {cats.map(c => (
+            <button key={c} className={'chip' + (activeCats.includes(c) ? ' active' : '')} onClick={() => toggle(activeCats, setActiveCats, c)}>{c}</button>
+          ))}
+          <div style={{ width: 1, height: 20, background: 'var(--line)', margin: '0 6px' }}/>
+          {colors.map(c => (
+            <button key={c.name} className={'chip' + (activeColors.includes(c.name) ? ' active' : '')} onClick={() => toggle(activeColors, setActiveColors, c.name)} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <span style={{ width: 12, height: 12, borderRadius: '50%', background: c.hex, border: '1px solid var(--line)' }}/>
+              {c.name}
+            </button>
+          ))}
+          <div style={{ flex: 1 }}/>
+          <select value={sort} onChange={e => setSort(e.target.value)} style={{ padding: '8px 12px', border: '1px solid var(--line)', background: 'white', fontSize: 13 }}>
+            <option>Featured</option><option>New arrivals</option><option>Low to high</option><option>High to low</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Grid */}
+      <section style={{ padding: '40px' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24, rowGap: 56 }}>
+          {products.map(p => <ProductCard key={p.id} p={p} go={go} addToCart={addToCart}/>)}
+        </div>
+        <div style={{ textAlign: 'center', marginTop: 60 }}>
+          <button className="btn btn-outline btn-lg">Load more  ↓</button>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+const PDP = ({ productId, go, addToCart, openCart }) => {
+  const p = PRODUCTS.find(x => x.id === productId) || PRODUCTS[0];
+  const [size, setSize] = React.useState(null);
+  const [colorIdx, setColorIdx] = React.useState(0);
+  const [qty, setQty] = React.useState(1);
+  const [tab, setTab] = React.useState('details');
+  const [imgIdx, setImgIdx] = React.useState(0);
+  const colorMap = { 'p1':['Natural','Clay','Indigo','Charcoal'],'p2':['Rose Clay','Bone','Moss'],'p3':['Moss','Charcoal','Clay'],'p4':['Bone','Charcoal','Moss'],'p5':['Natural Indigo','Charcoal'],'p6':['Rust','Charcoal'],'p7':['Sage','Bone'],'p8':['Charcoal','Smoke'] };
+  const colorNames = colorMap[p.id] || ['Natural', 'Clay', 'Moss', 'Indigo'];
+  const tones = [p.tone, 'cream', 'moss', p.tone === 'indigo' ? 'clay' : 'indigo'];
+  const garment = p.garment || 'shirt';
+
+  const onAdd = () => {
+    if (!size) { window.__toast?.('Please select a size'); return; }
+    addToCart(p, size, qty);
+    openCart();
+  };
+
+  return (
+    <div style={{ background: 'var(--bone)' }}>
+      <div style={{ maxWidth: 1440, margin: '0 auto', padding: '24px 40px 0' }}>
+        <div className="small" style={{ marginBottom: 24 }}>
+          <a onClick={() => go('home')} style={{ cursor: 'pointer' }}>Home</a> · <a onClick={() => go('plp')} style={{ cursor: 'pointer' }}>{p.gender}</a> · <a onClick={() => go('plp')} style={{ cursor: 'pointer' }}>{p.cat}</a> · <span style={{ color: 'var(--ink)' }}>{p.name}</span>
+        </div>
+      </div>
+
+      {/* Hero gallery + sticky info */}
+      <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 40px 80px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.45fr 1fr', gap: 64, alignItems: 'flex-start' }}>
+          {/* Gallery */}
+          <div>
+            <div style={{ display: 'grid', gridTemplateColumns: '76px 1fr', gap: 16 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, position: 'sticky', top: 100 }}>
+                {tones.map((t, i) => (
+                  <div key={i} onClick={() => setImgIdx(i)} style={{ cursor: 'pointer', aspectRatio: '3/4', outline: i===imgIdx ? '1.5px solid var(--ink)' : '1px solid var(--line-soft)', outlineOffset: i===imgIdx ? -1 : -1, position: 'relative', overflow: 'hidden' }}>
+                    <GarmentImage tone={t} garment={garment} full/>
+                  </div>
+                ))}
+                <div style={{ marginTop: 4, fontSize: 10, letterSpacing: '0.14em', color: 'var(--muted)', textTransform: 'uppercase', textAlign: 'center' }}>{imgIdx+1} / {tones.length}</div>
+              </div>
+              <div style={{ position: 'relative', aspectRatio: '3/4', overflow: 'hidden' }}>
+                <GarmentImage tone={tones[imgIdx]} garment={garment} full/>
+                <button className="product-wishlist" style={{ width: 44, height: 44, top: 16, right: 16 }}><Ic.heart /></button>
+                {p.tag && <span className="badge badge-clay" style={{ position: 'absolute', top: 16, left: 16, background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(8px)' }}>{p.tag}</span>}
+                {/* Image counter */}
+                <div style={{ position: 'absolute', bottom: 16, right: 16, background: 'rgba(28,27,23,0.7)', backdropFilter: 'blur(8px)', color: 'var(--bone)', padding: '6px 10px', fontSize: 10, letterSpacing: '0.14em', fontFamily: 'ui-monospace, monospace' }}>0{imgIdx+1} / 0{tones.length}</div>
+              </div>
+            </div>
+
+            {/* Secondary panel: detail crop + lifestyle, side by side */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 14 }}>
+              <div style={{ position: 'relative', aspectRatio: '4/5', overflow: 'hidden' }}>
+                <TextilePlaceholder tone={p.tone} full label="weave detail"/>
+              </div>
+              <div style={{ position: 'relative', aspectRatio: '4/5', overflow: 'hidden' }}>
+                <GarmentImage tone={p.tone === 'cream' || p.tone === 'bone' ? 'moss' : 'cream'} garment={garment} full/>
+              </div>
+            </div>
+          </div>
+
+          {/* Info */}
+          <div style={{ position: 'sticky', top: 100, alignSelf: 'flex-start', paddingTop: 8 }}>
+            <div className="eyebrow" style={{ marginBottom: 10 }}>Terra Luna · {p.cat}</div>
+            <h1 style={{ fontSize: 40, fontWeight: 300, lineHeight: 1.05, margin: '0 0 14px', letterSpacing: '-0.015em' }}>{p.name}</h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
+              <div style={{ display: 'flex', gap: 2, color: 'var(--clay)' }}>
+                {[1,2,3,4,5].map(i => <Ic.star key={i}/>)}
+              </div>
+              <span className="small">4.8 · 242 reviews</span>
+              <span className="small" style={{ marginLeft: 'auto', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: 4 }}><Ic.check/> In stock</span>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, paddingTop: 16, borderTop: '1px solid var(--line-soft)' }}>
+              <span style={{ fontSize: 28, fontWeight: 400 }}>{fmt(p.price)}</span>
+              {p.mrp > p.price && <span style={{ textDecoration: 'line-through', color: 'var(--muted)', fontSize: 16, fontWeight: 300 }}>{fmt(p.mrp)}</span>}
+              {p.mrp > p.price && <span style={{ background: 'var(--clay)', color: 'white', fontSize: 11, padding: '3px 8px', letterSpacing: '0.08em' }}>−{Math.round((1 - p.price/p.mrp)*100)}%</span>}
+            </div>
+            <div className="small" style={{ marginTop: 6 }}>Inclusive of all taxes · or 3 interest-free payments of {fmt(Math.round(p.price/3))}</div>
+
+            <p className="body" style={{ margin: '24px 0 28px' }}>{p.desc}</p>
+
+            {/* Color */}
+            <div style={{ marginBottom: 24 }}>
+              <div style={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 12 }}>Color · <span style={{ color: 'var(--ink)' }}>{colorNames[colorIdx] || colorNames[0]}</span></div>
+              <div style={{ display: 'flex', gap: 12 }}>
+                {p.colors.map((c, i) => (
+                  <button key={i} onClick={() => setColorIdx(i)} title={colorNames[i]} style={{ width: 46, height: 46, borderRadius: '50%', background: c, border: i===colorIdx ? '2px solid var(--ink)' : '1px solid var(--line)', outline: i===colorIdx ? '2px solid var(--bone)' : 'none', outlineOffset: -4, cursor: 'pointer', transition: 'transform .15s', transform: i===colorIdx ? 'scale(1.06)' : 'scale(1)' }}/>
+                ))}
+              </div>
+            </div>
+
+            {/* Size */}
+            <div style={{ marginBottom: 24 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                <div style={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--muted)' }}>Size {size && <span style={{ color: 'var(--ink)' }}>· {size}</span>}</div>
+                <button className="btn-ghost" style={{ fontSize: 12 }}>Size guide  →</button>
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                {p.sizes.map(s => (
+                  <button key={s} onClick={() => setSize(s)} style={{
+                    minWidth: 56, height: 48, padding: '0 14px', border: size===s ? '1.5px solid var(--ink)' : '1px solid var(--line)',
+                    background: size===s ? 'var(--ink)' : 'transparent',
+                    color: size===s ? 'var(--bone)' : 'var(--ink)',
+                    fontSize: 13, fontWeight: 500, cursor: 'pointer', transition: 'all .15s', letterSpacing: '0.04em'
+                  }}>{s}</button>
+                ))}
+              </div>
+              <div className="small" style={{ marginTop: 10, color: 'var(--clay)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Ic.sparkle/> Only 3 left in size M — selling fast
+              </div>
+            </div>
+
+            {/* Qty + add */}
+            <div style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
+              <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--line)', height: 56 }}>
+                <button onClick={() => setQty(q => Math.max(1, q-1))} style={{ padding: '0 16px', height: '100%' }}><Ic.minus/></button>
+                <span style={{ minWidth: 24, textAlign: 'center', fontSize: 14 }}>{qty}</span>
+                <button onClick={() => setQty(q => q+1)} style={{ padding: '0 16px', height: '100%' }}><Ic.plus/></button>
+              </div>
+              <button className="btn btn-primary btn-lg" style={{ flex: 1, height: 56 }} onClick={onAdd}>
+                Add to bag · {fmt(p.price * qty)}
+              </button>
+            </div>
+            <button className="btn btn-clay btn-lg btn-block" style={{ height: 56, marginBottom: 24 }} onClick={() => { onAdd(); setTimeout(() => go('checkout'), 200); }}>Buy it now</button>
+
+            {/* Pincode + delivery */}
+            <div style={{ border: '1px solid var(--line)', padding: 18, marginBottom: 18, background: 'rgba(255,255,255,0.4)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                <Ic.pin/>
+                <div style={{ fontSize: 13, fontWeight: 500 }}>Check delivery & timing</div>
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <input placeholder="Enter pincode" defaultValue="560001" style={{ flex: 1, padding: '10px 12px', border: '1px solid var(--line)', fontSize: 13, background: 'white' }}/>
+                <button className="btn btn-outline" style={{ padding: '10px 18px' }}>Check</button>
+              </div>
+              <div style={{ marginTop: 12, fontSize: 13, color: 'var(--success)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Ic.check/> Delivers by Tue, May 7 · Free standard shipping
+              </div>
+              <div style={{ marginTop: 4, fontSize: 13, color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Ic.truck/> Cash on delivery available · Express in 2 days for ₹199
+              </div>
+            </div>
+
+            {/* Trust list */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, fontSize: 13, marginBottom: 18, padding: '14px 0', borderTop: '1px solid var(--line-soft)', borderBottom: '1px solid var(--line-soft)' }}>
+              {[
+                {i:<Ic.leaf/>, t:'GOTS Organic Cotton'},
+                {i:<Ic.rotate/>, t:'30-day easy returns'},
+                {i:<Ic.shield/>, t:'KVIC Certified Khadi'},
+                {i:<Ic.truck/>, t:'Free shipping ₹2,499+'},
+              ].map((x,i)=> (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ color: 'var(--clay)', display: 'flex' }}>{x.i}</span>
+                  {x.t}
+                </div>
+              ))}
+            </div>
+
+            {/* Tabs */}
+            <div style={{ borderTop: '1px solid var(--line)', paddingTop: 16 }}>
+              {[
+                { id: 'details', t: 'Details & Fabric' },
+                { id: 'care', t: 'Care & Origin' },
+                { id: 'shipping', t: 'Shipping & Returns' },
+              ].map(tabItem => (
+                <div key={tabItem.id} style={{ borderBottom: '1px solid var(--line-soft)' }}>
+                  <button onClick={() => setTab(t => t===tabItem.id ? null : tabItem.id)} style={{ width: '100%', padding: '18px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 14, fontWeight: 500 }}>
+                    {tabItem.t}
+                    <span style={{ transform: tab===tabItem.id ? 'rotate(45deg)' : 'none', transition: 'transform .2s' }}><Ic.plus/></span>
+                  </button>
+                  {tab === tabItem.id && (
+                    <div style={{ paddingBottom: 18, fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6 }}>
+                      {tabItem.id === 'details' && <>
+                        <div style={{ marginBottom: 6 }}><strong>Fabric:</strong> {p.fabric}</div>
+                        <div style={{ marginBottom: 6 }}><strong>Fit:</strong> Relaxed regular fit</div>
+                        <div style={{ marginBottom: 6 }}><strong>Origin:</strong> Hand-crafted in Amreli, Gujarat</div>
+                        <div><strong>Model:</strong> 5'10", wearing size M</div>
+                      </>}
+                      {tabItem.id === 'care' && <>
+                        <div style={{ marginBottom: 6 }}>{p.care}</div>
+                        <div>Slight color variation is natural — each piece is hand-dyed and hand-woven.</div>
+                      </>}
+                      {tabItem.id === 'shipping' && <>
+                        <div style={{ marginBottom: 6 }}>Free shipping on orders over ₹2,499. Delivered in 3–5 days.</div>
+                        <div>30-day returns, no questions asked. Refunds processed in 5–7 days.</div>
+                      </>}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Made by hand — full-bleed story strip */}
+      <section style={{ background: 'var(--ink)', color: 'var(--bone)', padding: '90px 40px', marginTop: 60 }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 80, alignItems: 'center' }}>
+          <div style={{ position: 'relative', aspectRatio: '4/5', overflow: 'hidden' }}>
+            <TextilePlaceholder tone={p.tone} full label="charkha · amreli · gujarat"/>
+          </div>
+          <div>
+            <div className="eyebrow" style={{ color: 'var(--clay)', marginBottom: 16 }}>Made by hand · {p.fabric.split(' ').slice(-2).join(' ')}</div>
+            <h2 style={{ fontSize: 44, fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.015em', marginBottom: 24 }}>
+              Spun on a non-electric charkha.<br/>Woven on a hand loom.
+            </h2>
+            <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.78, marginBottom: 40, maxWidth: 520 }}>
+              {p.fabric} from artisan clusters in Amreli, Gujarat. Each {p.cat.toLowerCase().slice(0, -1)} takes 4 days from yarn to finished piece — slow on purpose, soft by design, and zero-carbon by tradition.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, paddingTop: 32, borderTop: '1px solid rgba(255,255,255,0.12)' }}>
+              {[
+                { n: '4', l: 'days to make' },
+                { n: '0', l: 'kWh of electricity' },
+                { n: '250+', l: 'artisans paid fairly' },
+              ].map((s, i) => (
+                <div key={i}>
+                  <div style={{ fontSize: 36, fontWeight: 300, marginBottom: 4 }}>{s.n}</div>
+                  <div style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', opacity: 0.6 }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 40px 80px' }}>
+        {/* Reviews */}
+        <section style={{ padding: '90px 0 60px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 60 }}>
+            <div>
+              <div className="eyebrow" style={{ marginBottom: 14 }}>Reviews</div>
+              <div style={{ fontSize: 56, fontWeight: 200, lineHeight: 1 }}>4.8</div>
+              <div style={{ display: 'flex', gap: 2, color: 'var(--clay)', margin: '8px 0' }}>{[1,2,3,4,5].map(i=><Ic.star key={i}/>)}</div>
+              <div className="small">Based on 242 verified reviews</div>
+              <div style={{ marginTop: 28 }}>
+                {[5,4,3,2,1].map(n => (
+                  <div key={n} style={{ display: 'grid', gridTemplateColumns: '20px 1fr 36px', alignItems: 'center', gap: 10, marginBottom: 6, fontSize: 12 }}>
+                    <span>{n}★</span>
+                    <div style={{ height: 4, background: 'var(--line)', borderRadius: 2 }}>
+                      <div style={{ width: [82,12,4,1,1][5-n] + '%', height: '100%', background: 'var(--clay)', borderRadius: 2 }}/>
+                    </div>
+                    <span style={{ color: 'var(--muted)', textAlign: 'right' }}>{[198,29,10,3,2][5-n]}</span>
+                  </div>
+                ))}
+              </div>
+              <button className="btn btn-outline" style={{ marginTop: 28 }}>Write a review</button>
+            </div>
+            <div>
+              {[
+                { n: 'Aanya R.', d: '2 weeks ago', r: 5, t: 'Soft, structured, exquisite', b: 'The fabric drapes beautifully and softens with every wash. I have three of these now.' },
+                { n: 'Karthik M.', d: '1 month ago', r: 5, t: 'Worth every rupee', b: 'You can feel the craft. Sizing runs true, fit is relaxed but not boxy.' },
+                { n: 'Mira S.', d: '6 weeks ago', r: 4, t: 'Perfect for travel', b: 'Packs well, doesn\'t crease much. Will buy in another color.' },
+              ].map((r,i) => (
+                <div key={i} style={{ paddingBottom: 28, marginBottom: 28, borderBottom: '1px solid var(--line-soft)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <div>
+                      <div style={{ fontWeight: 500, fontSize: 14 }}>{r.n} <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--success)' }}>✓ Verified</span></div>
+                      <div className="small">{r.d}</div>
+                    </div>
+                    <div style={{ display: 'flex', gap: 2, color: 'var(--clay)' }}>{Array(r.r).fill(0).map((_,j)=><Ic.star key={j}/>)}</div>
+                  </div>
+                  <div style={{ fontSize: 15, fontWeight: 500, marginBottom: 6 }}>{r.t}</div>
+                  <p className="body">{r.b}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* You may also like */}
+        <section style={{ marginTop: 60 }}>
+          <h2 className="h3" style={{ marginBottom: 28 }}>You may also like</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
+            {PRODUCTS.filter(x => x.id !== p.id).slice(0,4).map(p2 => <ProductCard key={p2.id} p={p2} go={go} addToCart={addToCart}/>)}
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+window.PLP = PLP;
+window.PDP = PDP;
+/* Login / Signup, Checkout, Thank you */
+
+const Login = ({ go, setUser }) => {
+  const [mode, setMode] = React.useState('login'); // login | signup
+  const [step, setStep] = React.useState('credentials'); // credentials | otp
+  const [email, setEmail] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+
+  const submit = () => {
+    if (mode === 'signup' || step === 'otp') {
+      setUser({ name: email.split('@')[0] || 'Aanya', email: email || 'aanya@example.com' });
+      go('home');
+    } else {
+      setStep('otp');
+    }
+  };
+
+  return (
+    <div style={{ minHeight: 'calc(100vh - 110px)', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+      <div style={{ position: 'relative' }}>
+        <TextilePlaceholder tone="clay" full label="login · spring 26 campaign"/>
+        <div style={{ position: 'absolute', bottom: 40, left: 40, right: 40, color: 'white' }}>
+          <div className="eyebrow" style={{ color: 'rgba(255,255,255,0.85)', marginBottom: 14 }}>Members get more</div>
+          <h2 className="h2" style={{ color: 'white', marginBottom: 16 }}>Slow fashion,<br/>steady rewards.</h2>
+          <p style={{ fontSize: 15, opacity: 0.92, maxWidth: 380, lineHeight: 1.6 }}>
+            Early access to drops, free monogramming on first order, and a complimentary khadi tote when you spend ₹5,000+.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 60 }}>
+        <div style={{ width: '100%', maxWidth: 380 }}>
+          <div className="eyebrow" style={{ marginBottom: 14 }}>{mode === 'login' ? 'Welcome back' : 'Join Terra Luna'}</div>
+          <h1 style={{ fontSize: 36, fontWeight: 300, lineHeight: 1.1, marginBottom: 8, letterSpacing: '-0.01em' }}>
+            {mode === 'login' ? 'Sign in to your account' : 'Create an account'}
+          </h1>
+          <p className="small" style={{ marginBottom: 32 }}>
+            {mode === 'login' ? 'Pick up where you left off.' : 'Save your size, addresses, and orders.'}
+          </p>
+
+          {step === 'credentials' ? (
+            <>
+              {/* Social */}
+              <div style={{ display: 'flex', gap: 10, marginBottom: 24 }}>
+                <button className="btn btn-outline" style={{ flex: 1 }}>Google</button>
+                <button className="btn btn-outline" style={{ flex: 1 }}>Apple</button>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14, margin: '24px 0', fontSize: 11, color: 'var(--muted)', letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+                <div style={{ flex: 1, height: 1, background: 'var(--line)' }}/> or <div style={{ flex: 1, height: 1, background: 'var(--line)' }}/>
+              </div>
+
+              {mode === 'signup' && (
+                <div className="field" style={{ marginBottom: 22 }}>
+                  <label>Full name</label>
+                  <input placeholder="Aanya Kapoor" />
+                </div>
+              )}
+              <div className="field" style={{ marginBottom: 22 }}>
+                <label>Email or mobile</label>
+                <input value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" />
+              </div>
+              {mode === 'login' && (
+                <div className="field" style={{ marginBottom: 14 }}>
+                  <label style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span>Password</span>
+                    <a style={{ color: 'var(--clay)', textTransform: 'none', letterSpacing: 0, cursor: 'pointer' }}>Forgot?</a>
+                  </label>
+                  <input type="password" placeholder="••••••••" />
+                </div>
+              )}
+              {mode === 'login' && (
+                <button className="btn-ghost" style={{ fontSize: 13, marginBottom: 24 }} onClick={() => setStep('otp')}>Sign in with OTP instead  →</button>
+              )}
+
+              <button className="btn btn-primary btn-block btn-lg" onClick={submit}>
+                {mode === 'login' ? 'Sign in' : 'Create account'}  →
+              </button>
+            </>
+          ) : (
+            <>
+              <div style={{ background: 'var(--cream)', padding: 20, marginBottom: 28, fontSize: 14 }}>
+                We've sent a 6-digit code to <strong>{email || '+91 98xxxxxx10'}</strong>
+              </div>
+              <div style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
+                {[1,2,3,4,5,6].map(i => (
+                  <input key={i} maxLength={1} defaultValue={i<=4 ? String(i) : ''} style={{ width: 48, height: 56, textAlign: 'center', fontSize: 20, border: '1px solid var(--line)', background: 'white' }}/>
+                ))}
+              </div>
+              <button className="btn btn-primary btn-block btn-lg" onClick={submit}>Verify & continue</button>
+              <button className="btn-ghost" style={{ marginTop: 12, fontSize: 13 }}>Resend code in 0:24</button>
+            </>
+          )}
+
+          <div style={{ marginTop: 32, fontSize: 13, color: 'var(--muted)', textAlign: 'center' }}>
+            {mode === 'login' ? <>New to Terra Luna? <a onClick={() => setMode('signup')} style={{ color: 'var(--ink)', textDecoration: 'underline', cursor: 'pointer' }}>Create an account</a></> :
+                                <>Already have an account? <a onClick={() => setMode('login')} style={{ color: 'var(--ink)', textDecoration: 'underline', cursor: 'pointer' }}>Sign in</a></>}
+          </div>
+          <div style={{ marginTop: 24, fontSize: 11, color: 'var(--muted)', textAlign: 'center', lineHeight: 1.6 }}>
+            By continuing, you agree to our <u>Terms</u> and <u>Privacy Policy</u>.
+          </div>
+
+          <button className="btn-ghost" style={{ display: 'block', margin: '32px auto 0', fontSize: 12 }} onClick={() => go('home')}>Continue as guest  →</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Checkout = ({ cart, go, setLastOrder, user }) => {
+  const [step, setStep] = React.useState(1); // 1 address, 2 shipping, 3 payment
+  const [address, setAddress] = React.useState({ name: user?.name || 'Aanya Kapoor', phone: '+91 98xxxxxx10', line1: '14, Indira Nagar', line2: '6th Cross, HAL II Stage', city: 'Bengaluru', pin: '560038', state: 'Karnataka' });
+  const [shipping, setShipping] = React.useState('standard');
+  const [payment, setPayment] = React.useState('upi');
+  const [coupon, setCoupon] = React.useState('');
+  const [couponApplied, setCouponApplied] = React.useState(false);
+
+  const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0) || 9498;
+  const shippingCost = shipping === 'express' ? 299 : (subtotal > 2499 ? 0 : 199);
+  const discount = couponApplied ? Math.round(subtotal * 0.1) : 0;
+  const total = subtotal + shippingCost - discount;
+
+  const placeOrder = () => {
+    const order = {
+      id: 'AR' + Math.floor(Math.random() * 900000 + 100000),
+      items: cart.length ? cart : [{ ...PRODUCTS[0], qty: 1, size: 'M', colorName: 'Natural', price: PRODUCTS[0].price }, { ...PRODUCTS[1], qty: 1, size: 'S', colorName: 'Clay', price: PRODUCTS[1].price }],
+      total, shippingCost, discount, address, payment, shipping,
+      placedAt: new Date(),
+    };
+    setLastOrder(order);
+    go('thankyou');
+  };
+
+  return (
+    <div style={{ padding: '20px 40px 80px', background: 'var(--bone-2)', minHeight: 'calc(100vh - 110px)' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        {/* Steps */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 0' }}>
+          <div className="brand" onClick={() => go('home')} style={{ fontSize: 22, cursor: 'pointer' }}>TERRA LUNA<span className="dot">.</span></div>
+          <div className="steps">
+            {['Bag', 'Address', 'Shipping', 'Payment'].map((s, i) => (
+              <React.Fragment key={s}>
+                <span className={'step ' + (i < step ? 'done' : i === step ? 'active' : '')}>
+                  <span className="num">{i < step ? '✓' : i+1}</span>{s}
+                </span>
+                {i < 3 && <span className="sep"/>}
+              </React.Fragment>
+            ))}
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Ic.shield/> Secure 256-bit checkout
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 40, marginTop: 32 }}>
+          {/* Left: forms */}
+          <div style={{ background: 'white', padding: 40, border: '1px solid var(--line)' }}>
+            {/* Address */}
+            <Section n={1} t="Delivery address" active={step === 1} done={step > 1} onEdit={() => setStep(1)}>
+              {step === 1 ? (
+                <>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginTop: 18 }}>
+                    <div className="field field-boxed"><label>Full name</label><input value={address.name} onChange={e => setAddress({...address, name: e.target.value})}/></div>
+                    <div className="field field-boxed"><label>Phone</label><input value={address.phone} onChange={e => setAddress({...address, phone: e.target.value})}/></div>
+                    <div className="field field-boxed" style={{ gridColumn: 'span 2' }}><label>Address line 1</label><input value={address.line1} onChange={e => setAddress({...address, line1: e.target.value})}/></div>
+                    <div className="field field-boxed" style={{ gridColumn: 'span 2' }}><label>Address line 2</label><input value={address.line2} onChange={e => setAddress({...address, line2: e.target.value})}/></div>
+                    <div className="field field-boxed"><label>City</label><input value={address.city}/></div>
+                    <div className="field field-boxed"><label>State</label><input value={address.state}/></div>
+                    <div className="field field-boxed"><label>Pincode</label><input value={address.pin}/></div>
+                    <div className="field field-boxed"><label>Country</label><input value="India"/></div>
+                  </div>
+                  <label style={{ display: 'flex', gap: 10, marginTop: 18, fontSize: 13, alignItems: 'center' }}>
+                    <input type="checkbox" defaultChecked/> Save this as default address
+                  </label>
+                  <button className="btn btn-primary btn-lg" style={{ marginTop: 20 }} onClick={() => setStep(2)}>Continue to shipping  →</button>
+                </>
+              ) : (
+                <div style={{ fontSize: 14, color: 'var(--ink-soft)' }}>
+                  <div style={{ fontWeight: 500, color: 'var(--ink)' }}>{address.name} · {address.phone}</div>
+                  {address.line1}, {address.line2}, {address.city}, {address.state} {address.pin}
+                </div>
+              )}
+            </Section>
+
+            <div className="divider" style={{ margin: '32px 0' }}/>
+
+            {/* Shipping */}
+            <Section n={2} t="Shipping method" active={step === 2} done={step > 2} onEdit={() => setStep(2)} disabled={step < 2}>
+              {step === 2 && (
+                <>
+                  {[
+                    { id: 'standard', t: 'Standard', d: '3–5 business days · Free over ₹2,499', p: subtotal > 2499 ? 0 : 199 },
+                    { id: 'express', t: 'Express', d: '1–2 business days · Tomorrow if before 4pm', p: 299 },
+                    { id: 'pickup', t: 'Store pickup', d: 'Bengaluru flagship · Indiranagar', p: 0 },
+                  ].map(o => (
+                    <label key={o.id} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: 18, border: shipping === o.id ? '1.5px solid var(--ink)' : '1px solid var(--line)', marginTop: 12, cursor: 'pointer' }}>
+                      <input type="radio" checked={shipping===o.id} onChange={() => setShipping(o.id)}/>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontWeight: 500, fontSize: 14 }}>{o.t}</div>
+                        <div className="small">{o.d}</div>
+                      </div>
+                      <div style={{ fontSize: 14, fontWeight: 500 }}>{o.p === 0 ? 'Free' : fmt(o.p)}</div>
+                    </label>
+                  ))}
+                  <button className="btn btn-primary btn-lg" style={{ marginTop: 20 }} onClick={() => setStep(3)}>Continue to payment  →</button>
+                </>
+              )}
+              {step > 2 && <div className="small">{shipping === 'express' ? 'Express · 1–2 days' : shipping === 'pickup' ? 'Store pickup' : 'Standard · 3–5 days'}</div>}
+            </Section>
+
+            <div className="divider" style={{ margin: '32px 0' }}/>
+
+            {/* Payment */}
+            <Section n={3} t="Payment" active={step === 3} disabled={step < 3}>
+              {step === 3 && (
+                <>
+                  {[
+                    { id: 'upi', t: 'UPI', d: 'Google Pay · PhonePe · Paytm', tag: 'Most popular' },
+                    { id: 'card', t: 'Credit / Debit card', d: 'Visa, Mastercard, Amex, Rupay' },
+                    { id: 'netbanking', t: 'Net banking', d: 'All major Indian banks' },
+                    { id: 'emi', t: 'EMI · No-cost', d: '3, 6 or 9 months · From ₹' + Math.round(total/9) + '/mo' },
+                    { id: 'wallet', t: 'Wallets', d: 'Paytm, Mobikwik, Amazon Pay' },
+                    { id: 'cod', t: 'Cash on delivery', d: 'Pay when you receive · ₹49 fee' },
+                  ].map(o => (
+                    <label key={o.id} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: 16, border: payment === o.id ? '1.5px solid var(--ink)' : '1px solid var(--line)', marginTop: 10, cursor: 'pointer' }}>
+                      <input type="radio" checked={payment===o.id} onChange={() => setPayment(o.id)}/>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                          <span style={{ fontWeight: 500, fontSize: 14 }}>{o.t}</span>
+                          {o.tag && <span className="badge badge-clay" style={{ fontSize: 9 }}>{o.tag}</span>}
+                        </div>
+                        <div className="small">{o.d}</div>
+                      </div>
+                      <Ic.card/>
+                    </label>
+                  ))}
+
+                  {payment === 'upi' && (
+                    <div style={{ marginTop: 18, padding: 18, background: 'var(--cream)', display: 'flex', gap: 14, alignItems: 'center' }}>
+                      <input placeholder="yourname@okhdfcbank" style={{ flex: 1, padding: '12px 14px', border: '1px solid var(--line)', background: 'white', fontSize: 14 }}/>
+                      <button className="btn btn-outline">Verify</button>
+                    </div>
+                  )}
+                  {payment === 'card' && (
+                    <div style={{ marginTop: 18, padding: 18, background: 'var(--cream)', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+                      <input placeholder="Card number" style={{ gridColumn: 'span 3', padding: '12px 14px', border: '1px solid var(--line)', background: 'white', fontSize: 14 }}/>
+                      <input placeholder="Name on card" style={{ gridColumn: 'span 3', padding: '12px 14px', border: '1px solid var(--line)', background: 'white', fontSize: 14 }}/>
+                      <input placeholder="MM / YY" style={{ padding: '12px 14px', border: '1px solid var(--line)', background: 'white', fontSize: 14 }}/>
+                      <input placeholder="CVV" style={{ padding: '12px 14px', border: '1px solid var(--line)', background: 'white', fontSize: 14 }}/>
+                      <input placeholder="OTP" style={{ padding: '12px 14px', border: '1px solid var(--line)', background: 'white', fontSize: 14 }}/>
+                    </div>
+                  )}
+
+                  <button className="btn btn-clay btn-block btn-lg" style={{ marginTop: 24, height: 60, fontSize: 14 }} onClick={placeOrder}>
+                    Place order · {fmt(total)}
+                  </button>
+                  <div className="small" style={{ marginTop: 12, textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8 }}>
+                    <Ic.shield/> Your payment info is encrypted with 256-bit SSL
+                  </div>
+                </>
+              )}
+            </Section>
+          </div>
+
+          {/* Right: summary */}
+          <aside>
+            <div style={{ background: 'white', padding: 28, border: '1px solid var(--line)', position: 'sticky', top: 20 }}>
+              <div style={{ fontSize: 16, fontWeight: 500, marginBottom: 18 }}>Order summary</div>
+              <div style={{ maxHeight: 220, overflowY: 'auto', marginBottom: 18 }}>
+                {(cart.length ? cart : [{ ...PRODUCTS[0], qty:1, size:'M', colorName:'Natural' }, { ...PRODUCTS[1], qty:1, size:'S', colorName:'Clay' }]).map((it, idx) => (
+                  <div key={idx} style={{ display: 'grid', gridTemplateColumns: '64px 1fr auto', gap: 12, marginBottom: 14 }}>
+                    <div style={{ position: 'relative' }}><TextilePlaceholder tone={it.tone} ratio="3/4"/></div>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 500 }}>{it.name}</div>
+                      <div className="small">{it.size} · {it.colorName} · Qty {it.qty}</div>
+                    </div>
+                    <div style={{ fontSize: 13, fontWeight: 500 }}>{fmt(it.price * it.qty)}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Coupon */}
+              <div style={{ display: 'flex', gap: 8, marginBottom: 18 }}>
+                <input value={coupon} onChange={e => setCoupon(e.target.value)} placeholder="Promo code" style={{ flex: 1, padding: '10px 12px', border: '1px solid var(--line)', fontSize: 13 }}/>
+                <button className="btn btn-outline" style={{ padding: '10px 16px' }} onClick={() => setCouponApplied(coupon.toLowerCase() === 'terraluna10' || coupon.length > 2)}>Apply</button>
+              </div>
+              {couponApplied && <div className="badge badge-success" style={{ marginBottom: 14 }}><Ic.check/> TERRALUNA10 applied · 10% off</div>}
+
+              <div className="divider" style={{ margin: '14px 0' }}/>
+
+              {[
+                ['Subtotal', fmt(subtotal)],
+                ['Shipping', shippingCost === 0 ? 'Free' : fmt(shippingCost)],
+                couponApplied && ['Discount', '−' + fmt(discount)],
+              ].filter(Boolean).map(([k,v]) => (
+                <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, marginBottom: 8 }}>
+                  <span style={{ color: 'var(--muted)' }}>{k}</span><span>{v}</span>
+                </div>
+              ))}
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 18, fontWeight: 500, paddingTop: 14, borderTop: '1px solid var(--line)', marginTop: 8 }}>
+                <span>Total</span><span>{fmt(total)}</span>
+              </div>
+              <div className="small" style={{ marginTop: 6 }}>Inclusive of all taxes</div>
+
+              <div style={{ marginTop: 24, padding: 14, background: 'var(--bone-2)', display: 'flex', gap: 10, fontSize: 12 }}>
+                <Ic.leaf/> This order plants 2 trees and supports 6 hours of artisan work in Amreli.
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Section = ({ n, t, active, done, onEdit, disabled, children }) => (
+  <div style={{ opacity: disabled ? 0.4 : 1, pointerEvents: disabled ? 'none' : 'auto' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <span style={{ width: 28, height: 28, borderRadius: '50%', background: done ? 'var(--success)' : active ? 'var(--ink)' : 'transparent', color: done || active ? 'white' : 'var(--ink)', border: done || active ? 'none' : '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 500 }}>
+          {done ? '✓' : n}
+        </span>
+        <div style={{ fontSize: 18, fontWeight: 500 }}>{t}</div>
+      </div>
+      {done && <button className="btn-ghost" style={{ fontSize: 12 }} onClick={onEdit}>Edit</button>}
+    </div>
+    {children}
+  </div>
+);
+
+const ThankYou = ({ order, go }) => {
+  if (!order) {
+    React.useEffect(() => { go('home'); }, []);
+    return null;
+  }
+  return (
+    <div style={{ padding: '40px', minHeight: 'calc(100vh - 110px)', background: 'var(--bone-2)' }}>
+      <div style={{ maxWidth: 980, margin: '0 auto' }}>
+        {/* Hero */}
+        <div style={{ background: 'white', padding: 60, border: '1px solid var(--line)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: -40, right: -40, width: 200, height: 200, opacity: 0.5 }}>
+            <TextilePlaceholder tone="clay" full/>
+          </div>
+          <div style={{ position: 'relative' }}>
+            <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'var(--success)', color: 'white', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 28px' }}>
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m4 12 5 5L20 6"/></svg>
+            </div>
+            <div className="eyebrow" style={{ marginBottom: 12 }}>Order confirmed</div>
+            <h1 className="h1" style={{ marginBottom: 14 }}>Thank you, {order.address.name.split(' ')[0]}.</h1>
+            <p className="body-lg" style={{ maxWidth: 540, margin: '0 auto 28px' }}>
+              Your order is in good hands. We'll send a tracking link to your email and WhatsApp.
+            </p>
+            <div style={{ display: 'inline-flex', gap: 12, alignItems: 'center', padding: '14px 24px', border: '1px dashed var(--line)', fontFamily: 'monospace', fontSize: 14 }}>
+              Order # <strong>{order.id}</strong> · Placed {order.placedAt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+            </div>
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 28 }}>
+              <button className="btn btn-primary btn-lg" onClick={() => go('orderTracking', { orderId: order.id })}>Track order  →</button>
+              <button className="btn btn-outline btn-lg" onClick={() => go('plp')}>Continue shopping</button>
+            </div>
+          </div>
+        </div>
+
+        {/* Order details */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 28, marginTop: 28 }}>
+          <div style={{ background: 'white', padding: 32, border: '1px solid var(--line)' }}>
+            <div style={{ fontSize: 16, fontWeight: 500, marginBottom: 20 }}>Order details</div>
+            {order.items.map((it, i) => (
+              <div key={i} style={{ display: 'grid', gridTemplateColumns: '80px 1fr auto', gap: 16, padding: '16px 0', borderBottom: '1px solid var(--line-soft)' }}>
+                <TextilePlaceholder tone={it.tone} ratio="3/4"/>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 500 }}>{it.name}</div>
+                  <div className="small">{it.size} · {it.colorName} · Qty {it.qty}</div>
+                </div>
+                <div style={{ fontSize: 14, fontWeight: 500 }}>{fmt(it.price * it.qty)}</div>
+              </div>
+            ))}
+            <div style={{ paddingTop: 18, fontSize: 14 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}><span style={{ color: 'var(--muted)' }}>Shipping</span><span>{order.shippingCost === 0 ? 'Free' : fmt(order.shippingCost)}</span></div>
+              {order.discount > 0 && <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}><span style={{ color: 'var(--muted)' }}>Discount</span><span>−{fmt(order.discount)}</span></div>}
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 18, fontWeight: 500, paddingTop: 12, borderTop: '1px solid var(--line)' }}><span>Paid</span><span>{fmt(order.total)}</span></div>
+            </div>
+          </div>
+
+          <div>
+            <div style={{ background: 'white', padding: 28, border: '1px solid var(--line)', marginBottom: 20 }}>
+              <div className="eyebrow" style={{ marginBottom: 12 }}>Shipping to</div>
+              <div style={{ fontSize: 14, lineHeight: 1.6 }}>
+                <strong>{order.address.name}</strong><br/>
+                {order.address.line1}, {order.address.line2}<br/>
+                {order.address.city}, {order.address.state} {order.address.pin}<br/>
+                {order.address.phone}
+              </div>
+              <div className="divider" style={{ margin: '18px 0' }}/>
+              <div className="eyebrow" style={{ marginBottom: 8 }}>Estimated delivery</div>
+              <div style={{ fontSize: 16, fontWeight: 500 }}>Tue, 5 May — Thu, 7 May</div>
+            </div>
+
+            <div style={{ background: 'var(--ink)', color: 'var(--bone)', padding: 24 }}>
+              <div className="eyebrow" style={{ color: 'var(--clay)', marginBottom: 10 }}>Refer & earn</div>
+              <div style={{ fontSize: 18, marginBottom: 8 }}>Give ₹500. Get ₹500.</div>
+              <p style={{ fontSize: 13, opacity: 0.8, marginBottom: 16 }}>Share your link — your friend gets ₹500 off their first order, you get a credit on your next.</p>
+              <button className="btn btn-clay btn-block">Copy your referral link</button>
+            </div>
+          </div>
+        </div>
+
+        {/* Cross-sell */}
+        <div style={{ marginTop: 60 }}>
+          <h3 className="h3" style={{ marginBottom: 24 }}>Pairs well with your order</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
+            {PRODUCTS.slice(4,8).map(p => <ProductCard key={p.id} p={p} go={go} addToCart={() => {}}/>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+window.Login = Login;
+window.Checkout = Checkout;
+window.ThankYou = ThankYou;
+/* Account dashboard, My Orders, Order tracking, Cancel/Return */
+
+const Account = ({ user, go, setUser }) => {
+  const [tab, setTab] = React.useState('overview');
+  const tabs = [
+    { id: 'overview', t: 'Overview' },
+    { id: 'orders', t: 'My Orders' },
+    { id: 'addresses', t: 'Addresses' },
+    { id: 'wishlist', t: 'Wishlist' },
+    { id: 'rewards', t: 'Rewards & Credits' },
+    { id: 'profile', t: 'Profile' },
+  ];
+
+  return (
+    <div style={{ padding: '40px', minHeight: 'calc(100vh - 110px)' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <div style={{ marginBottom: 32 }}>
+          <div className="eyebrow" style={{ marginBottom: 10 }}>My Account</div>
+          <h1 className="h2">Hello, {user?.name?.split(' ')[0] || 'Aanya'}.</h1>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 40 }}>
+          <aside>
+            {tabs.map(t => (
+              <button key={t.id} onClick={() => setTab(t.id)} style={{
+                display: 'block', width: '100%', textAlign: 'left',
+                padding: '14px 16px', fontSize: 14,
+                background: tab === t.id ? 'var(--cream)' : 'transparent',
+                borderLeft: tab === t.id ? '2px solid var(--clay)' : '2px solid transparent',
+                fontWeight: tab === t.id ? 500 : 400,
+              }}>{t.t}</button>
+            ))}
+            <div className="divider" style={{ margin: '16px 0' }}/>
+            <button onClick={() => { setUser(null); go('home'); }} style={{ padding: '14px 16px', fontSize: 14, color: 'var(--muted)' }}>Sign out</button>
+          </aside>
+
+          <main>
+            {tab === 'overview' && <Overview go={go} setTab={setTab}/>}
+            {tab === 'orders' && <MyOrders go={go}/>}
+            {tab === 'addresses' && <Addresses/>}
+            {tab === 'wishlist' && <Wishlist go={go}/>}
+            {tab === 'rewards' && <Rewards/>}
+            {tab === 'profile' && <Profile user={user}/>}
+          </main>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Overview = ({ go, setTab }) => (
+  <div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 18, marginBottom: 32 }}>
+      {[
+        { t: 'Open orders', n: '2', s: 'In transit', a: () => setTab('orders') },
+        { t: 'Reward credits', n: '₹1,200', s: 'Expires Aug 26', a: () => setTab('rewards') },
+        { t: 'Saved items', n: '14', s: 'In your wishlist', a: () => setTab('wishlist') },
+      ].map(c => (
+        <div key={c.t} onClick={c.a} style={{ padding: 24, background: 'white', border: '1px solid var(--line)', cursor: 'pointer' }}>
+          <div className="small" style={{ marginBottom: 8 }}>{c.t}</div>
+          <div style={{ fontSize: 32, fontWeight: 300 }}>{c.n}</div>
+          <div className="small" style={{ marginTop: 6 }}>{c.s}  →</div>
+        </div>
+      ))}
+    </div>
+    <div style={{ background: 'white', border: '1px solid var(--line)', padding: 28, marginBottom: 24 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
+        <div className="h3">Recent order</div>
+        <button className="btn-ghost" onClick={() => setTab('orders')} style={{ fontSize: 13 }}>View all  →</button>
+      </div>
+      <OrderRow order={SAMPLE_ORDERS[0]} go={go}/>
+    </div>
+    <div style={{ padding: 28, background: 'var(--ink)', color: 'var(--bone)', display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'center', gap: 24 }}>
+      <div>
+        <div className="eyebrow" style={{ color: 'var(--clay)', marginBottom: 8 }}>Terra Luna Inner Circle</div>
+        <div style={{ fontSize: 18, marginBottom: 6 }}>You're 2 orders away from Silver tier</div>
+        <p style={{ fontSize: 13, opacity: 0.8 }}>Unlock 12% off, free express shipping, and early access to new drops.</p>
+      </div>
+      <button className="btn btn-clay">Learn more</button>
+    </div>
+  </div>
+);
+
+const SAMPLE_ORDERS = [
+  { id: 'AR384719', placedAt: 'Apr 28, 2026', status: 'Shipped', statusStep: 2, total: 9498, items: [PRODUCTS[0], PRODUCTS[1]], deliveryDate: 'Tue, 5 May' },
+  { id: 'AR384502', placedAt: 'Apr 12, 2026', status: 'Delivered', statusStep: 4, total: 4499, items: [PRODUCTS[3]], deliveryDate: 'Apr 16' },
+  { id: 'AR383977', placedAt: 'Mar 30, 2026', status: 'Delivered', statusStep: 4, total: 6999, items: [PRODUCTS[2]], deliveryDate: 'Apr 3' },
+  { id: 'AR383341', placedAt: 'Mar 14, 2026', status: 'Cancelled', statusStep: -1, total: 5499, items: [PRODUCTS[6]], deliveryDate: '—' },
+  { id: 'AR382820', placedAt: 'Feb 28, 2026', status: 'Returned', statusStep: -2, total: 4799, items: [PRODUCTS[7]], deliveryDate: '—' },
+];
+window.SAMPLE_ORDERS = SAMPLE_ORDERS;
+
+const StatusBadge = ({ status }) => {
+  const map = {
+    'Placed': { c: 'badge-clay' },
+    'Shipped': { c: 'badge-warn' },
+    'Out for delivery': { c: 'badge-warn' },
+    'Delivered': { c: 'badge-success' },
+    'Cancelled': { c: 'badge', s: { background: 'rgba(161,72,72,0.12)', color: 'var(--danger)' } },
+    'Returned': { c: 'badge', s: { background: 'rgba(110,106,96,0.15)', color: 'var(--muted)' } },
+  };
+  const m = map[status] || { c: 'badge-clay' };
+  return <span className={'badge ' + m.c} style={m.s}>{status}</span>;
+};
+
+const OrderRow = ({ order, go }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 24, alignItems: 'center' }}>
+    <div style={{ display: 'flex' }}>
+      {order.items.slice(0,3).map((it, i) => (
+        <div key={i} style={{ width: 70, marginLeft: i ? -10 : 0, border: '2px solid white' }}>
+          <TextilePlaceholder tone={it.tone} ratio="3/4"/>
+        </div>
+      ))}
+    </div>
+    <div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 6 }}>
+        <span style={{ fontFamily: 'monospace', fontSize: 13 }}>#{order.id}</span>
+        <StatusBadge status={order.status}/>
+      </div>
+      <div style={{ fontSize: 14, fontWeight: 500 }}>{order.items.map(i => i.name).join(' · ')}</div>
+      <div className="small" style={{ marginTop: 4 }}>Placed {order.placedAt} · {fmt(order.total)} · {order.status === 'Delivered' ? 'Delivered ' + order.deliveryDate : order.status === 'Shipped' ? 'Arrives ' + order.deliveryDate : order.deliveryDate}</div>
+    </div>
+    <div style={{ display: 'flex', gap: 8 }}>
+      <button className="btn btn-outline" style={{ padding: '10px 16px' }} onClick={() => go('orderTracking', { orderId: order.id })}>Track</button>
+      <button className="btn-ghost" style={{ fontSize: 12 }}>Invoice</button>
+    </div>
+  </div>
+);
+
+const MyOrders = ({ go }) => {
+  const [filter, setFilter] = React.useState('All');
+  const filters = ['All', 'In progress', 'Delivered', 'Cancelled', 'Returned'];
+  let orders = SAMPLE_ORDERS;
+  if (filter === 'In progress') orders = orders.filter(o => ['Placed','Shipped','Out for delivery'].includes(o.status));
+  if (filter === 'Delivered') orders = orders.filter(o => o.status === 'Delivered');
+  if (filter === 'Cancelled') orders = orders.filter(o => o.status === 'Cancelled');
+  if (filter === 'Returned') orders = orders.filter(o => o.status === 'Returned');
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+        <div className="h3">My Orders</div>
+        <input placeholder="Search by order ID or product" style={{ padding: '10px 14px', border: '1px solid var(--line)', fontSize: 13, width: 280 }}/>
+      </div>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 28 }}>
+        {filters.map(f => (
+          <button key={f} className={'chip' + (filter === f ? ' active' : '')} onClick={() => setFilter(f)}>{f}</button>
+        ))}
+      </div>
+      {orders.map(o => (
+        <div key={o.id} style={{ background: 'white', border: '1px solid var(--line)', padding: 24, marginBottom: 14 }}>
+          <OrderRow order={o} go={go}/>
+          <div style={{ marginTop: 18, paddingTop: 18, borderTop: '1px solid var(--line-soft)', display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {(o.status === 'Placed' || o.status === 'Shipped') && (
+              <button className="btn btn-outline" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => go('orderTracking', { orderId: o.id, action: 'cancel' })}>Cancel order</button>
+            )}
+            {o.status === 'Delivered' && (
+              <>
+                <button className="btn btn-outline" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => go('orderTracking', { orderId: o.id, action: 'return' })}>Return / Exchange</button>
+                <button className="btn btn-outline" style={{ padding: '8px 14px', fontSize: 11 }}>Buy again</button>
+                <button className="btn btn-outline" style={{ padding: '8px 14px', fontSize: 11 }}>Write review</button>
+              </>
+            )}
+            <button className="btn-ghost" style={{ fontSize: 12 }}>Need help?</button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const TRACKING_STEPS = [
+  { t: 'Placed', d: '28 Apr · 9:42 AM', s: 'Order received and being prepared.' },
+  { t: 'Packed', d: '29 Apr · 4:18 PM', s: 'Hand-packed in our Bengaluru fulfilment center.' },
+  { t: 'Shipped', d: '30 Apr · 11:05 AM', s: 'Picked up by Delhivery · AWB 8841XX23' },
+  { t: 'Out for delivery', d: 'Expected 5 May', s: 'Will be delivered between 10 AM – 7 PM.' },
+  { t: 'Delivered', d: 'Expected 5 May', s: 'Delivered to your doorstep.' },
+];
+
+const OrderTracking = ({ orderId, action, go }) => {
+  const order = SAMPLE_ORDERS.find(o => o.id === orderId) || SAMPLE_ORDERS[0];
+  const [showCancel, setShowCancel] = React.useState(action === 'cancel');
+  const [showReturn, setShowReturn] = React.useState(action === 'return');
+
+  const currentStep = order.status === 'Delivered' ? 4 : order.statusStep || 2;
+
+  return (
+    <div style={{ padding: '40px', minHeight: 'calc(100vh - 110px)' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+        <button className="btn-ghost" style={{ fontSize: 13, marginBottom: 20 }} onClick={() => go('account')}>← Back to my orders</button>
+
+        {/* Header */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'center', marginBottom: 32 }}>
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 8 }}>Order #{order.id}</div>
+            <h1 className="h2">{order.status === 'Delivered' ? 'Delivered' : 'Arrives ' + order.deliveryDate}</h1>
+            <div className="small" style={{ marginTop: 8 }}>{order.items.length} item{order.items.length>1?'s':''} · Placed {order.placedAt}</div>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button className="btn btn-outline">Download invoice</button>
+            <button className="btn btn-outline">Help</button>
+          </div>
+        </div>
+
+        {/* Tracking timeline */}
+        <div style={{ background: 'white', border: '1px solid var(--line)', padding: 40, marginBottom: 24 }}>
+          {/* Map placeholder */}
+          <div style={{ position: 'relative', height: 180, marginBottom: 36, overflow: 'hidden', borderRadius: 0 }}>
+            <TextilePlaceholder tone="sage" full label="live tracking · delhivery"/>
+            <div style={{ position: 'absolute', top: 20, left: 20, padding: '8px 14px', background: 'white', display: 'flex', gap: 10, alignItems: 'center', fontSize: 12 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--success)', animation: 'pulse 1.5s infinite' }}/>
+              In transit · Hosur, Tamil Nadu
+            </div>
+            <style>{`@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }`}</style>
+          </div>
+
+          {/* Step row */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 0, position: 'relative' }}>
+            {TRACKING_STEPS.map((s, i) => {
+              const done = i < currentStep;
+              const active = i === currentStep;
+              return (
+                <div key={i} style={{ position: 'relative', textAlign: 'center', paddingTop: 36 }}>
+                  {/* line */}
+                  {i < TRACKING_STEPS.length - 1 && (
+                    <div style={{ position: 'absolute', top: 14, left: '50%', right: '-50%', height: 2, background: i < currentStep ? 'var(--success)' : 'var(--line)' }}/>
+                  )}
+                  {/* node */}
+                  <div style={{
+                    position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
+                    width: 28, height: 28, borderRadius: '50%',
+                    background: done ? 'var(--success)' : active ? 'var(--clay)' : 'white',
+                    border: done || active ? 'none' : '1.5px solid var(--line)',
+                    color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12,
+                    boxShadow: active ? '0 0 0 6px rgba(168,112,76,0.18)' : 'none',
+                  }}>
+                    {done ? '✓' : ''}
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 500, color: active || done ? 'var(--ink)' : 'var(--muted)' }}>{s.t}</div>
+                  <div className="small" style={{ marginTop: 4, fontSize: 11 }}>{s.d}</div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div style={{ marginTop: 36, padding: 18, background: 'var(--cream)', display: 'flex', gap: 14 }}>
+            <Ic.truck/>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 14, fontWeight: 500 }}>{TRACKING_STEPS[currentStep]?.t || 'In progress'}</div>
+              <div className="small">{TRACKING_STEPS[currentStep]?.s}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Items + actions */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 24 }}>
+          <div style={{ background: 'white', border: '1px solid var(--line)', padding: 28 }}>
+            <div className="h3" style={{ marginBottom: 20 }}>Items in this order</div>
+            {order.items.map((it, i) => (
+              <div key={i} style={{ display: 'grid', gridTemplateColumns: '90px 1fr auto', gap: 16, padding: '16px 0', borderBottom: i < order.items.length-1 ? '1px solid var(--line-soft)' : 'none' }}>
+                <TextilePlaceholder tone={it.tone} ratio="3/4"/>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 500 }}>{it.name}</div>
+                  <div className="small">M · Natural · Qty 1</div>
+                  <div style={{ fontSize: 14, fontWeight: 500, marginTop: 8 }}>{fmt(it.price)}</div>
+                  <div style={{ display: 'flex', gap: 14, marginTop: 10, fontSize: 12 }}>
+                    {(order.status === 'Placed' || order.status === 'Shipped') && <a onClick={() => setShowCancel(true)} style={{ textDecoration: 'underline', color: 'var(--ink)', cursor: 'pointer' }}>Cancel item</a>}
+                    {order.status === 'Delivered' && <>
+                      <a onClick={() => setShowReturn(true)} style={{ textDecoration: 'underline', color: 'var(--ink)', cursor: 'pointer' }}>Return</a>
+                      <a style={{ textDecoration: 'underline', color: 'var(--ink)', cursor: 'pointer' }}>Exchange size</a>
+                      <a style={{ textDecoration: 'underline', color: 'var(--ink)', cursor: 'pointer' }}>Buy again</a>
+                    </>}
+                  </div>
+                </div>
+                <button className="btn-ghost" style={{ fontSize: 12, alignSelf: 'flex-start' }}>?</button>
+              </div>
+            ))}
+          </div>
+
+          <div>
+            <div style={{ background: 'white', border: '1px solid var(--line)', padding: 24, marginBottom: 16 }}>
+              <div className="eyebrow" style={{ marginBottom: 10 }}>Shipping</div>
+              <div style={{ fontSize: 14, lineHeight: 1.6 }}>
+                <strong>Aanya Kapoor</strong><br/>
+                14, Indira Nagar, 6th Cross<br/>
+                Bengaluru, Karnataka 560038<br/>
+                +91 98xxxxxx10
+              </div>
+            </div>
+            <div style={{ background: 'white', border: '1px solid var(--line)', padding: 24, marginBottom: 16 }}>
+              <div className="eyebrow" style={{ marginBottom: 10 }}>Payment</div>
+              <div style={{ fontSize: 14 }}>UPI · Google Pay</div>
+              <div className="small" style={{ marginTop: 4 }}>Paid {fmt(order.total)} on {order.placedAt}</div>
+            </div>
+            <div style={{ background: 'var(--ink)', color: 'var(--bone)', padding: 24 }}>
+              <div className="eyebrow" style={{ color: 'var(--clay)', marginBottom: 8 }}>Need help?</div>
+              <div style={{ fontSize: 16, marginBottom: 14 }}>Talk to us about this order</div>
+              <button className="btn btn-clay btn-block" onClick={() => window.__openChat?.()}>Open chat support</button>
+              <button className="btn btn-block" style={{ marginTop: 8, color: 'var(--bone)', border: '1px solid rgba(255,255,255,0.3)' }}>WhatsApp us</button>
+            </div>
+          </div>
+        </div>
+
+        {/* Modals */}
+        {showCancel && <CancelModal close={() => setShowCancel(false)} order={order}/>}
+        {showReturn && <ReturnModal close={() => setShowReturn(false)} order={order}/>}
+      </div>
+    </div>
+  );
+};
+
+const Modal = ({ close, children, title, sub }) => (
+  <>
+    <div className="drawer-overlay open" onClick={close}/>
+    <div style={{
+      position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+      width: 560, maxWidth: '92vw', maxHeight: '88vh', overflowY: 'auto',
+      background: 'var(--bone)', zIndex: 200, padding: 36,
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
+        <div>
+          <div className="eyebrow" style={{ marginBottom: 8 }}>{sub}</div>
+          <div className="h3">{title}</div>
+        </div>
+        <button className="icon-btn" onClick={close}><Ic.close/></button>
+      </div>
+      {children}
+    </div>
+  </>
+);
+
+const CancelModal = ({ close, order }) => {
+  const [reason, setReason] = React.useState('');
+  const [done, setDone] = React.useState(false);
+  const reasons = ['Ordered by mistake', 'Found a better price', 'Delivery taking too long', 'Wrong size / color', 'Changed my mind', 'Other'];
+
+  if (done) return (
+    <Modal close={close} title="Order cancelled" sub="Confirmed">
+      <p className="body" style={{ marginBottom: 20 }}>Your order <strong>#{order.id}</strong> has been cancelled. Refund of <strong>{fmt(order.total)}</strong> will reach your account in 5–7 business days.</p>
+      <div style={{ background: 'var(--cream)', padding: 16, marginBottom: 20, fontSize: 13 }}>
+        <strong>Want to keep it instead?</strong><br/>
+        We can extend free express shipping or offer 15% off. <a style={{ textDecoration: 'underline', cursor: 'pointer', color: 'var(--clay)' }}>Restore order</a>
+      </div>
+      <button className="btn btn-primary btn-block" onClick={close}>Done</button>
+    </Modal>
+  );
+
+  return (
+    <Modal close={close} title="Cancel this order?" sub={'#' + order.id}>
+      <p className="body" style={{ marginBottom: 20 }}>We're sorry to see you go. Tell us what happened — it helps us improve.</p>
+      <div style={{ marginBottom: 20 }}>
+        {reasons.map(r => (
+          <label key={r} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 14, border: reason === r ? '1.5px solid var(--ink)' : '1px solid var(--line)', marginBottom: 8, cursor: 'pointer', background: 'white' }}>
+            <input type="radio" checked={reason === r} onChange={() => setReason(r)}/>
+            <span style={{ fontSize: 14 }}>{r}</span>
+          </label>
+        ))}
+      </div>
+      <div style={{ background: 'rgba(184,118,58,0.08)', padding: 16, marginBottom: 20, fontSize: 13, display: 'flex', gap: 12 }}>
+        <Ic.sparkle/>
+        <div>
+          <strong>Wait — can we offer you 15% off?</strong><br/>
+          Keep your order with code <strong>STAY15</strong> and we'll refund the difference.
+          <button className="btn btn-clay" style={{ marginTop: 10, padding: '8px 16px', fontSize: 11 }}>Apply STAY15 & keep order</button>
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 10 }}>
+        <button className="btn btn-outline" style={{ flex: 1 }} onClick={close}>Keep order</button>
+        <button className="btn btn-primary" style={{ flex: 1 }} disabled={!reason} onClick={() => setDone(true)}>Cancel order</button>
+      </div>
+    </Modal>
+  );
+};
+
+const ReturnModal = ({ close, order }) => {
+  const [step, setStep] = React.useState(1);
+  const [items, setItems] = React.useState({});
+  const [reason, setReason] = React.useState('');
+  const [resolution, setResolution] = React.useState('refund');
+  const reasons = ['Size doesn\'t fit', 'Color different from photo', 'Quality not as expected', 'Damaged on arrival', 'Changed my mind', 'Wrong item received'];
+
+  return (
+    <Modal close={close} title={['Select items', 'Tell us why', 'How can we make it right?', 'Pickup scheduled'][step-1]} sub={'Return / Exchange · #' + order.id}>
+      {/* Steps */}
+      <div style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
+        {[1,2,3,4].map(n => (
+          <div key={n} style={{ flex: 1, height: 3, background: n <= step ? 'var(--clay)' : 'var(--line)' }}/>
+        ))}
+      </div>
+
+      {step === 1 && <>
+        {order.items.map((it, i) => (
+          <label key={i} style={{ display: 'grid', gridTemplateColumns: 'auto 60px 1fr auto', gap: 14, alignItems: 'center', padding: 14, border: items[i] ? '1.5px solid var(--ink)' : '1px solid var(--line)', marginBottom: 8, cursor: 'pointer', background: 'white' }}>
+            <input type="checkbox" checked={!!items[i]} onChange={e => setItems({...items, [i]: e.target.checked})}/>
+            <TextilePlaceholder tone={it.tone} ratio="3/4"/>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 500 }}>{it.name}</div>
+              <div className="small">Size M · Natural</div>
+            </div>
+            <div style={{ fontSize: 14 }}>{fmt(it.price)}</div>
+          </label>
+        ))}
+        <button className="btn btn-primary btn-block" style={{ marginTop: 16 }} disabled={!Object.values(items).some(Boolean)} onClick={() => setStep(2)}>Continue</button>
+      </>}
+
+      {step === 2 && <>
+        {reasons.map(r => (
+          <label key={r} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 14, border: reason === r ? '1.5px solid var(--ink)' : '1px solid var(--line)', marginBottom: 8, cursor: 'pointer', background: 'white' }}>
+            <input type="radio" checked={reason === r} onChange={() => setReason(r)}/>
+            <span style={{ fontSize: 14 }}>{r}</span>
+          </label>
+        ))}
+        <textarea placeholder="Add a comment (optional)" rows="3" style={{ width: '100%', marginTop: 12, padding: 14, border: '1px solid var(--line)', fontSize: 14, background: 'white' }}/>
+        <div style={{ marginTop: 14, padding: 14, background: 'var(--cream)', fontSize: 13, display: 'flex', gap: 10, alignItems: 'center' }}>
+          <Ic.sparkle/> Upload photos for faster resolution <button className="btn-ghost" style={{ fontSize: 12, marginLeft: 'auto' }}>+ Add photo</button>
+        </div>
+        <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
+          <button className="btn btn-outline" style={{ flex: 1 }} onClick={() => setStep(1)}>Back</button>
+          <button className="btn btn-primary" style={{ flex: 1 }} disabled={!reason} onClick={() => setStep(3)}>Continue</button>
+        </div>
+      </>}
+
+      {step === 3 && <>
+        {[
+          { id: 'refund', t: 'Refund to original payment', d: '5–7 business days · ' + fmt(order.total) },
+          { id: 'credit', t: 'Terra Luna credit + 10% bonus', d: 'Instant · Get ' + fmt(Math.round(order.total*1.1)) + ' to spend', tag: 'Recommended' },
+          { id: 'exchange', t: 'Exchange for different size', d: 'Free · Same item, your size' },
+          { id: 'replace', t: 'Replace item', d: 'Choose a different product · We pay difference' },
+        ].map(o => (
+          <label key={o.id} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: 16, border: resolution === o.id ? '1.5px solid var(--ink)' : '1px solid var(--line)', marginBottom: 8, cursor: 'pointer', background: 'white' }}>
+            <input type="radio" checked={resolution===o.id} onChange={() => setResolution(o.id)}/>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ fontWeight: 500, fontSize: 14 }}>{o.t}</span>
+                {o.tag && <span className="badge badge-clay" style={{ fontSize: 9 }}>{o.tag}</span>}
+              </div>
+              <div className="small">{o.d}</div>
+            </div>
+          </label>
+        ))}
+        <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
+          <button className="btn btn-outline" style={{ flex: 1 }} onClick={() => setStep(2)}>Back</button>
+          <button className="btn btn-primary" style={{ flex: 1 }} onClick={() => setStep(4)}>Schedule pickup</button>
+        </div>
+      </>}
+
+      {step === 4 && <>
+        <div style={{ textAlign: 'center', padding: '20px 0' }}>
+          <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--success)', color: 'white', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 18 }}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m4 12 5 5L20 6"/></svg>
+          </div>
+          <div className="h3" style={{ marginBottom: 8 }}>Pickup scheduled</div>
+          <p className="body">Our courier will pick up your return on <strong>Mon, 4 May, 10 AM – 2 PM</strong>. Pack the item in its original packaging.</p>
+        </div>
+        <div style={{ background: 'var(--cream)', padding: 18, marginTop: 16, fontSize: 13 }}>
+          <div style={{ marginBottom: 6 }}><strong>Reference #</strong> RT{Math.floor(Math.random()*900000+100000)}</div>
+          <div style={{ marginBottom: 6 }}><strong>Resolution</strong> {resolution === 'refund' ? 'Refund to UPI' : resolution === 'credit' ? 'Terra Luna credit + 10% bonus' : resolution === 'exchange' ? 'Exchange size' : 'Replace item'}</div>
+          <div><strong>Pickup address</strong> 14, Indira Nagar, Bengaluru 560038</div>
+        </div>
+        <button className="btn btn-primary btn-block" style={{ marginTop: 20 }} onClick={close}>Done</button>
+      </>}
+    </Modal>
+  );
+};
+
+const Addresses = () => (
+  <div>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+      <div className="h3">Saved addresses</div>
+      <button className="btn btn-outline">+ Add new address</button>
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      {[
+        { tag: 'Home', def: true, name: 'Aanya Kapoor', a: '14, Indira Nagar, 6th Cross, Bengaluru 560038', ph: '+91 98xxxxxx10' },
+        { tag: 'Work', def: false, name: 'Aanya Kapoor', a: 'Block 4, Embassy Tech Square, Bengaluru 560103', ph: '+91 98xxxxxx10' },
+      ].map((ad, i) => (
+        <div key={i} style={{ background: 'white', border: '1px solid var(--line)', padding: 24 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 14 }}>
+            <span className="badge badge-clay">{ad.tag}</span>
+            {ad.def && <span className="small">DEFAULT</span>}
+          </div>
+          <div style={{ fontSize: 14, fontWeight: 500, marginBottom: 6 }}>{ad.name}</div>
+          <div className="body" style={{ marginBottom: 6 }}>{ad.a}</div>
+          <div className="small">{ad.ph}</div>
+          <div style={{ display: 'flex', gap: 14, marginTop: 18, fontSize: 13 }}>
+            <a style={{ textDecoration: 'underline', cursor: 'pointer' }}>Edit</a>
+            <a style={{ textDecoration: 'underline', cursor: 'pointer' }}>Delete</a>
+            {!ad.def && <a style={{ textDecoration: 'underline', cursor: 'pointer' }}>Set as default</a>}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const Wishlist = ({ go }) => (
+  <div>
+    <div className="h3" style={{ marginBottom: 24 }}>Wishlist · 4 items</div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24 }}>
+      {PRODUCTS.slice(0,4).map(p => <ProductCard key={p.id} p={p} go={go} addToCart={() => {}}/>)}
+    </div>
+  </div>
+);
+
+const Rewards = () => (
+  <div>
+    <div className="h3" style={{ marginBottom: 24 }}>Rewards & Credits</div>
+    <div style={{ background: 'linear-gradient(135deg, var(--ink), #2a2823)', color: 'var(--bone)', padding: 36, marginBottom: 24, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: -60, right: -60, width: 240, height: 240, opacity: 0.4 }}>
+        <TextilePlaceholder tone="clay" full/>
+      </div>
+      <div style={{ position: 'relative' }}>
+        <div className="eyebrow" style={{ color: 'var(--clay)', marginBottom: 10 }}>Bronze Member</div>
+        <div style={{ fontSize: 42, fontWeight: 200, marginBottom: 8 }}>₹1,200<span style={{ fontSize: 16, opacity: 0.6, marginLeft: 8 }}>store credit</span></div>
+        <div className="small" style={{ color: 'rgba(244,239,230,0.7)' }}>Expires 12 Aug, 2026</div>
+      </div>
+    </div>
+    <div style={{ background: 'white', border: '1px solid var(--line)', padding: 28 }}>
+      <div className="eyebrow" style={{ marginBottom: 16 }}>Recent activity</div>
+      {[
+        { t: 'Order #AR384502 reward', a: '+₹450', d: 'Apr 16' },
+        { t: 'Welcome bonus', a: '+₹500', d: 'Mar 30' },
+        { t: 'Birthday credit', a: '+₹250', d: 'Feb 14' },
+      ].map((r,i) => (
+        <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid var(--line-soft)' }}>
+          <div>
+            <div style={{ fontSize: 14 }}>{r.t}</div>
+            <div className="small">{r.d}</div>
+          </div>
+          <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--success)' }}>{r.a}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const Profile = ({ user }) => (
+  <div>
+    <div className="h3" style={{ marginBottom: 24 }}>Profile details</div>
+    <div style={{ background: 'white', border: '1px solid var(--line)', padding: 32, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+      <div className="field field-boxed"><label>Full name</label><input defaultValue={user?.name || 'Aanya Kapoor'}/></div>
+      <div className="field field-boxed"><label>Email</label><input defaultValue={user?.email || 'aanya@example.com'}/></div>
+      <div className="field field-boxed"><label>Phone</label><input defaultValue="+91 98xxxxxx10"/></div>
+      <div className="field field-boxed"><label>Date of birth</label><input defaultValue="14 Feb 1995"/></div>
+      <div className="field field-boxed"><label>Preferred fit</label><select defaultValue="Relaxed"><option>Slim</option><option>Regular</option><option>Relaxed</option></select></div>
+      <div className="field field-boxed"><label>Size · Tops</label><select defaultValue="M"><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option></select></div>
+      <div style={{ gridColumn: 'span 2' }}><button className="btn btn-primary">Save changes</button></div>
+    </div>
+  </div>
+);
+
+window.Account = Account;
+window.OrderTracking = OrderTracking;
+/* Chatbot — Terra Luna Concierge */
+const QUICK_REPLIES = [
+  'Track my order',
+  'Return / Exchange',
+  'Size guide',
+  'Care instructions',
+  'Talk to a human',
+];
+
+const Chatbot = () => {
+  const [open, setOpen] = React.useState(false);
+  const [unread, setUnread] = React.useState(1);
+  const [messages, setMessages] = React.useState([
+    { from: 'bot', t: "Hello — I'm Maya, your Terra Luna concierge.", ts: 'just now' },
+    { from: 'bot', t: "How can I help today?", quickReplies: QUICK_REPLIES, ts: 'just now' },
+  ]);
+  const [input, setInput] = React.useState('');
+  const [typing, setTyping] = React.useState(false);
+  const bodyRef = React.useRef();
+
+  React.useEffect(() => {
+    window.__openChat = () => { setOpen(true); setUnread(0); };
+  }, []);
+
+  React.useEffect(() => {
+    if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+  }, [messages, typing]);
+
+  const respond = (userText) => {
+    setMessages(m => [...m, { from: 'user', t: userText, ts: 'now' }]);
+    setTyping(true);
+    setTimeout(() => {
+      setTyping(false);
+      let reply;
+      const lower = userText.toLowerCase();
+      if (lower.includes('track')) reply = { from: 'bot', t: "Your latest order #AR384719 is in transit. Expected delivery: Tue, 5 May. Want a live update?", actions: [{ t: 'Open tracking', go: 'orderTracking' }, { t: 'Email me updates', go: null }], ts: 'now' };
+      else if (lower.includes('return') || lower.includes('exchange')) reply = { from: 'bot', t: "We offer 30-day free returns. Which order would you like to return?", actions: [{ t: 'AR384719 — Spring jacket', go: 'orderTracking' }, { t: 'AR384502 — Loom trouser', go: 'orderTracking' }], ts: 'now' };
+      else if (lower.includes('size')) reply = { from: 'bot', t: "Tell me your usual size and the product, and I'll find the right fit. Or open our size guide.", actions: [{ t: 'Open size guide', go: null }], ts: 'now' };
+      else if (lower.includes('care')) reply = { from: 'bot', t: "Khadi gets softer with each wash. Hand wash cold, line dry, cool iron — that's all you need.", ts: 'now' };
+      else if (lower.includes('human') || lower.includes('agent')) reply = { from: 'bot', t: "I'm connecting you to a human agent. Average wait: 1m 20s. Or get a callback in 15 minutes.", actions: [{ t: 'Continue with chat', go: null }, { t: 'Request a callback', go: null }, { t: 'WhatsApp instead', go: null }], ts: 'now' };
+      else reply = { from: 'bot', t: "Got it — I'll find that for you. In the meantime, you can also explore:", quickReplies: QUICK_REPLIES, ts: 'now' };
+      setMessages(m => [...m, reply]);
+    }, 900);
+  };
+
+  const send = () => {
+    if (!input.trim()) return;
+    respond(input);
+    setInput('');
+  };
+
+  return (
+    <>
+      {/* Trigger */}
+      {!open && (
+        <button
+          onClick={() => { setOpen(true); setUnread(0); }}
+          style={{
+            position: 'fixed', bottom: 24, right: 24, zIndex: 90,
+            background: 'var(--ink)', color: 'var(--bone)',
+            padding: '14px 20px', borderRadius: 100,
+            display: 'flex', alignItems: 'center', gap: 10,
+            boxShadow: '0 8px 28px rgba(0,0,0,0.18)',
+            cursor: 'pointer',
+          }}>
+          <span style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--clay)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}><Ic.chat/></span>
+          <span style={{ fontSize: 13, fontWeight: 500 }}>Chat with Maya</span>
+          {unread > 0 && <span style={{ background: 'var(--clay)', borderRadius: '50%', width: 18, height: 18, fontSize: 11, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>{unread}</span>}
+        </button>
+      )}
+
+      {/* Window */}
+      {open && (
+        <div style={{
+          position: 'fixed', bottom: 24, right: 24, zIndex: 90,
+          width: 380, height: 580, maxHeight: 'calc(100vh - 48px)',
+          background: 'var(--bone)',
+          boxShadow: '0 16px 48px rgba(0,0,0,0.22)',
+          display: 'flex', flexDirection: 'column',
+          border: '1px solid var(--line)',
+        }}>
+          {/* Header */}
+          <div style={{ padding: 18, background: 'var(--ink)', color: 'var(--bone)', display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ position: 'relative' }}>
+              <div style={{ width: 38, height: 38, borderRadius: '50%', overflow: 'hidden' }}>
+                <TextilePlaceholder tone="clay" full/>
+              </div>
+              <div style={{ position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: '#5BC97D', border: '2px solid var(--ink)' }}/>
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 14, fontWeight: 500 }}>Maya · Terra Luna Concierge</div>
+              <div style={{ fontSize: 11, opacity: 0.7 }}>Online · replies in seconds</div>
+            </div>
+            <button onClick={() => setOpen(false)} style={{ color: 'var(--bone)' }}><Ic.close/></button>
+          </div>
+
+          {/* Body */}
+          <div ref={bodyRef} style={{ flex: 1, overflowY: 'auto', padding: 18, background: 'var(--bone-2)' }}>
+            <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--muted)', marginBottom: 20, letterSpacing: '0.06em' }}>Today</div>
+
+            {messages.map((m, i) => (
+              <div key={i} style={{ marginBottom: 16, display: 'flex', justifyContent: m.from === 'user' ? 'flex-end' : 'flex-start' }}>
+                <div style={{ maxWidth: '82%' }}>
+                  <div style={{
+                    padding: '10px 14px',
+                    background: m.from === 'user' ? 'var(--ink)' : 'white',
+                    color: m.from === 'user' ? 'var(--bone)' : 'var(--ink)',
+                    fontSize: 14, lineHeight: 1.5,
+                    borderRadius: m.from === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+                  }}>{m.t}</div>
+                  {m.quickReplies && (
+                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
+                      {m.quickReplies.map(q => (
+                        <button key={q} onClick={() => respond(q)} className="chip" style={{ background: 'white', fontSize: 12 }}>{q}</button>
+                      ))}
+                    </div>
+                  )}
+                  {m.actions && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 8 }}>
+                      {m.actions.map((a, j) => (
+                        <button key={j} onClick={() => respond(a.t)} style={{ background: 'white', border: '1px solid var(--line)', padding: '10px 14px', fontSize: 13, textAlign: 'left', cursor: 'pointer' }}>
+                          {a.t}  →
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+
+            {typing && (
+              <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                <div style={{ padding: '12px 16px', background: 'white', borderRadius: '16px 16px 16px 4px', display: 'flex', gap: 4 }}>
+                  {[0,1,2].map(i => (
+                    <span key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--muted)', animation: `bb 1.2s ${i*0.15}s infinite` }}/>
+                  ))}
+                  <style>{`@keyframes bb { 0%,80%,100%{opacity:0.3;transform:translateY(0)} 40%{opacity:1;transform:translateY(-3px)} }`}</style>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Input */}
+          <div style={{ padding: 14, borderTop: '1px solid var(--line)', background: 'var(--bone)' }}>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', background: 'white', border: '1px solid var(--line)', padding: '8px 8px 8px 14px' }}>
+              <input
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && send()}
+                placeholder="Type a message…"
+                style={{ flex: 1, border: 'none', outline: 'none', fontSize: 14, padding: '6px 0' }}
+              />
+              <button onClick={send} style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--clay)', color: 'white', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}><Ic.send/></button>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10, fontSize: 11, color: 'var(--muted)' }}>
+              <span>Powered by Terra Luna AI</span>
+              <span>🔒 End-to-end encrypted</span>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+window.Chatbot = Chatbot;
+/* Main app shell — routing + state orchestration */
+
+const App = () => {
+  const [route, setRoute] = React.useState('home');
+  const [routeParams, setRouteParams] = React.useState({});
+  const [cart, setCart] = React.useState([]);
+  const [cartOpen, setCartOpen] = React.useState(false);
+  const [user, setUser] = React.useState({ name: 'Aanya Kapoor', email: 'aanya@example.com' });
+  const [lastOrder, setLastOrder] = React.useState(null);
+  const [toast, setToast] = React.useState(null);
+
+  React.useEffect(() => {
+    window.__toast = (msg) => {
+      setToast(msg);
+      setTimeout(() => setToast(null), 2200);
+    };
+  }, []);
+
+  const go = (r, params = {}) => {
+    setRoute(r);
+    setRouteParams(params);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const addToCart = (p, size = 'M', qty = 1) => {
+    const colorName = p.colors?.[0] === '#1C1B17' ? 'Charcoal' : 'Natural';
+    setCart(c => {
+      const existing = c.findIndex(i => i.id === p.id && i.size === size);
+      if (existing >= 0) {
+        return c.map((i, idx) => idx === existing ? {...i, qty: i.qty + qty} : i);
+      }
+      return [...c, { ...p, size, qty, colorName }];
+    });
+    window.__toast?.(`Added to bag · ${p.name}`);
+  };
+
+  const screen = (() => {
+    switch (route) {
+      case 'home': return <Home go={go} addToCart={addToCart}/>;
+      case 'plp': return <PLP go={go} addToCart={addToCart}/>;
+      case 'pdp': return <PDP productId={routeParams.productId} go={go} addToCart={addToCart} openCart={() => setCartOpen(true)}/>;
+      case 'login': return <Login go={go} setUser={setUser}/>;
+      case 'checkout': return <Checkout cart={cart} go={go} setLastOrder={setLastOrder} user={user}/>;
+      case 'thankyou': return <ThankYou order={lastOrder} go={go}/>;
+      case 'account': return <Account user={user} go={go} setUser={setUser}/>;
+      case 'orderTracking': return <OrderTracking orderId={routeParams.orderId} action={routeParams.action} go={go}/>;
+      default: return <Home go={go} addToCart={addToCart}/>;
+    }
+  })();
+
+  // Hide top nav on login + checkout for focused flow
+  const hideShell = route === 'login' || route === 'checkout' || route === 'thankyou';
+
+  return (
+    <div className="app-shell">
+      {!hideShell && (
+        <TopNav
+          route={route}
+          go={go}
+          cart={cart}
+          openCart={() => setCartOpen(true)}
+          openSearch={() => {}}
+          user={user}
+        />
+      )}
+
+      <main style={{ flex: 1 }}>
+        {screen}
+      </main>
+
+      {!hideShell && <Footer/>}
+
+      <SideCart
+        open={cartOpen}
+        close={() => setCartOpen(false)}
+        cart={cart}
+        setCart={setCart}
+        go={go}
+      />
+
+      <Chatbot/>
+
+      {/* Floating screen-jump pill (shows current screen + lets you jump anywhere) */}
+      <ScreenNav route={route} go={go} setLastOrder={setLastOrder} addToCart={addToCart}/>
+
+      <div className={'toast' + (toast ? ' show' : '')}>
+        <Ic.check/> {toast}
+      </div>
+    </div>
+  );
+};
+
+const ScreenNav = ({ route, go, setLastOrder, addToCart }) => {
+  const [open, setOpen] = React.useState(false);
+  const screens = [
+    { id: 'home', t: '01 · Home' },
+    { id: 'plp', t: '02 · Listing' },
+    { id: 'pdp', t: '03 · Product', params: { productId: 'p1' } },
+    { id: 'login', t: '04 · Login' },
+    { id: 'checkout', t: '05 · Checkout' },
+    { id: 'thankyou', t: '06 · Thank you', setup: () => {
+        const order = { id: 'AR' + Math.floor(Math.random()*900000+100000), items: [{...PRODUCTS[0], qty:1, size:'M', colorName:'Natural'}, {...PRODUCTS[1], qty:1, size:'S', colorName:'Clay'}], total: 9498, shippingCost: 0, discount: 0, address: { name: 'Aanya Kapoor', phone: '+91 98xxxxxx10', line1: '14, Indira Nagar', line2: '6th Cross, HAL II Stage', city: 'Bengaluru', pin: '560038', state: 'Karnataka' }, payment: 'upi', shipping: 'standard', placedAt: new Date() };
+        setLastOrder(order);
+      }
+    },
+    { id: 'account', t: '07 · Account' },
+    { id: 'orderTracking', t: '08 · Tracking', params: { orderId: 'AR384719' } },
+  ];
+
+  return (
+    <div style={{ position: 'fixed', bottom: 24, left: 24, zIndex: 90 }}>
+      {open && (
+        <div style={{ marginBottom: 10, background: 'var(--ink)', color: 'var(--bone)', padding: 10, borderRadius: 10, boxShadow: '0 8px 28px rgba(0,0,0,0.2)', minWidth: 220, maxHeight: 360, overflowY: 'auto' }}>
+          <div style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', padding: '6px 10px', opacity: 0.6 }}>Jump to screen</div>
+          {screens.map(s => (
+            <button key={s.id} onClick={() => { s.setup?.(); go(s.id, s.params || {}); setOpen(false); }} style={{
+              display: 'block', width: '100%', textAlign: 'left',
+              padding: '10px 12px', fontSize: 13, color: 'var(--bone)',
+              background: route === s.id ? 'rgba(168,112,76,0.4)' : 'transparent',
+              borderRadius: 6,
+            }}>{s.t}</button>
+          ))}
+        </div>
+      )}
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          background: 'rgba(28,27,23,0.92)', color: 'var(--bone)',
+          padding: '10px 16px', borderRadius: 100,
+          fontSize: 12, letterSpacing: '0.06em',
+          backdropFilter: 'blur(8px)',
+          boxShadow: '0 6px 20px rgba(0,0,0,0.18)',
+          display: 'flex', alignItems: 'center', gap: 8,
+        }}>
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--clay)' }}/>
+        Screens · {screens.find(s => s.id === route)?.t || route}
+      </button>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
